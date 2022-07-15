@@ -12,12 +12,10 @@ enum UEPieceTableEntryType
 };
 
 
-class UCPieceTableEntry
+class USPieceTableEntry
 {
-	private:
+	public:
 		UEPieceTableEntryType eType;
-		void* pvContent;
-		unsigned int iLength;
-
-	friend class UCPieceTableManager;
+		TCHAR* pszContent;
+		unsigned int uiLength;
 };

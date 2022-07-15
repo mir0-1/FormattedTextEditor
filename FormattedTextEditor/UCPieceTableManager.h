@@ -1,14 +1,14 @@
 #pragma once
 #include <afxtempl.h>
-#include "UCPieceTableEntry.h"
+#include "USPieceTableEntry.h"
 #include "UCAppendBuffer.h"
 
 class UCPieceTableManager
 {
 	private:
-		CList<UCPieceTableEntry, UCPieceTableEntry&> oPieceTable;
-		UCAppendBuffer oAppendBuffer;
+		CList<USPieceTableEntry, USPieceTableEntry&> oPieceTable;
 	public:
-
+		UCAppendBuffer oAppendBuffer;
+		POSITION addAt(POSITION posAfter, unsigned int uiAfterNChars, TCHAR* tszString, unsigned int uiLength);
 };
 

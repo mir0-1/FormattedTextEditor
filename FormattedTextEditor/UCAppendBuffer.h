@@ -1,5 +1,6 @@
 #pragma once
 #include <tchar.h>
+#include "USPieceTableEntry.h"
 
 class UCAppendBuffer
 {
@@ -8,6 +9,9 @@ class UCAppendBuffer
 		unsigned int uiCurrentArrayLengthLeft;
 		TCHAR* pArrTszCurrentArray;
 		TCHAR* pTracker;
+		bool isInit;
+
+		USPieceTableEntry oEntryOut;
 
 	public:
 		UCAppendBuffer();

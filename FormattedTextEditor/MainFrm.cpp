@@ -7,7 +7,7 @@
 #include "FormattedTextEditor.h"
 
 #include "MainFrm.h"
-#include "UCAppendBuffer.h"
+#include "UCPieceTableManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,6 +52,18 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
+
+	UCPieceTableManager ptm;
+
+	TCHAR tsz[256] = TEXT("This test");
+	unsigned int uiLen = _tcslen(tsz);
+
+	POSITION last = ptm.addAt(nullptr, 0, tsz, uiLen);
+	_tcscpy(tsz, TEXT("must gotta be"));
+	uiLen = _tcslen(tsz);
+
+	ptm.oAppendBuffer.updateTracker();
+	ptm.addAt(last, 4, tsz, uiLen);
 
 	return 0;
 }

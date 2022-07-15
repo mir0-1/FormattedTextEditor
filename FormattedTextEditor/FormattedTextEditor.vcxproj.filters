@@ -39,13 +39,13 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCPieceTableEntry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UCPieceTableManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UCAppendBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USPieceTableEntry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,17 +65,14 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\MFCTextEditor\MFCTextEditor\UCAppendBuffer.cpp">
+    <ClCompile Include="UCAppendBuffer.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MFCTextEditor\MFCTextEditor\UCPieceTableManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UCPieceTableManager.cpp">
-      <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="UCAppendBuffer.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCPieceTableManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
