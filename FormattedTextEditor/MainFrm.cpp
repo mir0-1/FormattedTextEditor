@@ -55,15 +55,41 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	UCPieceTableManager ptm;
 
-	TCHAR tsz[256] = TEXT("This test");
-	unsigned int uiLen = _tcslen(tsz);
+	TCHAR tsz[256] = TEXT("This is");
+	unsigned int uiLen1 = _tcslen(tsz);
+	unsigned int uiLen2;
+	unsigned int uiLen3;
+	unsigned int uiLen4;
+	unsigned int uiLen5;
+	unsigned int uiLen6;
+	unsigned int uiLen7;
+	unsigned int uiLen8;
 
-	POSITION last = ptm.addAt(nullptr, 0, tsz, uiLen);
-	_tcscpy(tsz, TEXT("must gotta be"));
-	uiLen = _tcslen(tsz);
+	ptm.selectPos(nullptr, 0);
+	ptm.add(tsz, uiLen1);
 
-	ptm.oAppendBuffer.updateTracker();
-	ptm.addAt(last, 4, tsz, uiLen);
+	_tcscpy(tsz, TEXT(" a test"));
+	uiLen2 = _tcslen(tsz);
+	ptm.add(tsz, uiLen2);
+
+	_tcscpy(tsz, TEXT(" hell yeah"));
+	uiLen3 = _tcslen(tsz);
+	ptm.add(tsz, uiLen3);
+
+	ptm.selectPosByCharCount(uiLen1);
+	_tcscpy(tsz, TEXT("weeb"));
+	uiLen4 = _tcslen(tsz);
+	ptm.add(tsz, uiLen4);
+
+	ptm.selectPosByCharCount(uiLen1 + uiLen2 + uiLen3 + uiLen4);
+	_tcscpy(tsz, TEXT(" added"));
+	uiLen5 = _tcslen(tsz);
+	ptm.add(tsz, uiLen5);
+
+	ptm.selectPosByCharCount(uiLen1 + 2);
+	_tcscpy(tsz, TEXT("split"));
+	uiLen6 = _tcslen(tsz);
+	ptm.add(tsz, uiLen6);
 
 	return 0;
 }

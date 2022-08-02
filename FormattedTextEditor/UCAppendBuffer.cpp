@@ -14,7 +14,7 @@ UCAppendBuffer::UCAppendBuffer(unsigned int uiInLengthPerArray)
 	uiCurrentArrayLengthLeft = 0;
 }
 
-TCHAR* UCAppendBuffer::add(TCHAR* tszString, unsigned int* uiLength, bool bUpdateTracker)
+TCHAR* UCAppendBuffer::add(TCHAR** tszString, unsigned int* uiLength, bool bUpdateTracker)
 {
 	unsigned int i;
 
@@ -28,14 +28,16 @@ TCHAR* UCAppendBuffer::add(TCHAR* tszString, unsigned int* uiLength, bool bUpdat
 			pArrTszCurrentArray = new TCHAR[uiLengthPerArray];
 			pTracker = pArrTszCurrentArray;
 			uiCurrentArrayLengthLeft = uiLengthPerArray;
+			break;
 		}
 
-		pArrTszCurrentArray[uiLengthPerArray - uiCurrentArrayLengthLeft] = tszString[i];
+		pArrTszCurrentArray[uiLengthPerArray - uiCurrentArrayLengthLeft] = (*tszString)[i];
 		uiCurrentArrayLengthLeft--;
 	}
 
 
 	*uiLength -= i;
+	*tszString += i;
 
 	return pTracker;
 }

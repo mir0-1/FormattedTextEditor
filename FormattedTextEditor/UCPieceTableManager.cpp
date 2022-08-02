@@ -2,56 +2,119 @@
 #include "UCPieceTableManager.h"
 
 
-POSITION UCPieceTableManager::addAt(POSITION posEntry, unsigned int uiAfterNChars, TCHAR* tszString, unsigned int uiLength)
+POSITION UCPieceTableManager::add(TCHAR* tszString, unsigned int uiLength)
 {
-	unsigned int uiPrevLength = uiLength;
-	TCHAR* pTszTracker = nullptr;
-	USPieceTableEntry oInEntry, oTemp;
+	USPieceTableEntry oAddedPte, oSelectedPte;
+	TCHAR* pszThisTracker;
+	static TCHAR* pszPrevTracker = nullptr;
+	static POSITION posPrev = nullptr;
+	unsigned int &uiLengthNotAdded = uiLength;
 
 	while (uiLength)
 	{
-		uiPrevLength = uiLength;
-		pTszTracker = oAppendBuffer.add(tszString, &uiLength, false);
+		unsigned int uiPrevLength = uiLength;
 
-		oInEntry.eType = UEPieceTableEntryType::DISCRETE_ADD; // TODO: make this changeable
-		oInEntry.uiLength = uiPrevLength;
-		oInEntry.pszContent = pTszTracker;
-
-		if (posEntry == nullptr)
+		if (m_posCurrent != nullptr)
 		{
-			posEntry = oPieceTable.AddTail(oInEntry);
+			oSelectedPte = m_oPieceTable.GetAt(m_posCurrent);
+
+			if (posPrev != nullptr && (m_posCurrent != posPrev || m_uiCharOffset != oSelectedPte.uiLength))
+				m_oAppendBuffer.updateTracker();
+		}
+
+		pszThisTracker = m_oAppendBuffer.add(&tszString, &uiLength, false);
+
+		// CASE 0: INSERT IN EMPTY TABLE
+		if (m_posCurrent == nullptr)
+		{
+			oAddedPte.pszContent = pszThisTracker;
+			oAddedPte.uiLength = (uiPrevLength - uiLength);
+			m_posCurrent = m_oPieceTable.AddTail(oAddedPte);
+			m_uiCharOffset = oAddedPte.uiLength;
+			pszPrevTracker = pszThisTracker;
+			posPrev = m_posCurrent;
 			continue;
 		}
 
-		oTemp = oPieceTable.GetAt(posEntry);
-
-		if (uiAfterNChars > oTemp.uiLength)
-			return nullptr;
-
-		if (uiAfterNChars == oTemp.uiLength)
+		if (m_uiCharOffset == oSelectedPte.uiLength)
 		{
-			oPieceTable.InsertAfter(posEntry, oInEntry);
-			continue;
+			// case 1: insert after (update existing entry)
+			if (pszThisTracker == pszPrevTracker)
+			{
+				oSelectedPte.uiLength += (uiPrevLength - uiLengthNotAdded);
+				m_uiCharOffset = oSelectedPte.uiLength;
+				m_oPieceTable.SetAt(m_posCurrent, oSelectedPte);
+			}
+
+			// case 2: insert after (add new entry)
+			else
+			{
+				oAddedPte.pszContent = pszThisTracker;
+				oAddedPte.uiLength = (uiPrevLength - uiLengthNotAdded);
+				m_posCurrent = m_oPieceTable.InsertAfter(m_posCurrent, oAddedPte);
+				m_uiCharOffset = oAddedPte.uiLength;
+			}
 		}
 
-		if (uiAfterNChars == 0)
+		// case 3: insert before (add new entry)
+		else if (m_uiCharOffset == 0)
 		{
-			oPieceTable.InsertBefore(posEntry, oInEntry);
-			continue;
+			oAddedPte.pszContent = pszThisTracker;
+			oAddedPte.uiLength = (uiPrevLength - uiLengthNotAdded);
+			m_posCurrent = m_oPieceTable.InsertBefore(m_posCurrent, oAddedPte);
+			m_uiCharOffset = oAddedPte.uiLength;
 		}
 
-		unsigned int uiOrigLength = oTemp.uiLength;
+		// case 4: insert between (add new entry, update existing entry)
+		else
+		{
+			unsigned int uiSplitLengthLeft = oSelectedPte.uiLength - m_uiCharOffset;
+			oSelectedPte.uiLength = m_uiCharOffset;
+			m_oPieceTable.SetAt(m_posCurrent, oSelectedPte);
+			
+			oAddedPte.pszContent = pszThisTracker;
+			oAddedPte.uiLength = (uiPrevLength - uiLengthNotAdded);
+			m_posCurrent = m_oPieceTable.InsertAfter(m_posCurrent, oAddedPte);
 
-		oTemp.uiLength = uiAfterNChars;
-		oPieceTable.SetAt(posEntry, oTemp);
-		POSITION posFirstHalf = oPieceTable.InsertAfter(posEntry, oInEntry);
+			oAddedPte.pszContent = oSelectedPte.pszContent + m_uiCharOffset;
+			oAddedPte.uiLength = uiSplitLengthLeft;
+			m_uiCharOffset = (uiPrevLength - uiLengthNotAdded);
+			m_oPieceTable.InsertAfter(m_posCurrent, oAddedPte);
+		}
 
-		oTemp.pszContent = oTemp.pszContent + oTemp.uiLength;
-		oTemp.uiLength = uiOrigLength - uiAfterNChars;
-
-		oPieceTable.InsertAfter(posFirstHalf, oTemp);
-	
+		pszPrevTracker = pszThisTracker;
+		posPrev = m_posCurrent;
 	}
 
-	return posEntry;
+	return m_posCurrent;
+}
+
+void UCPieceTableManager::selectPos(POSITION posInCurrentPos, unsigned int uiInCharOffset)
+{
+	m_posCurrent = posInCurrentPos;
+	m_uiCharOffset = uiInCharOffset;
+}
+
+void UCPieceTableManager::selectPosByCharCount(unsigned int uiLength)
+{
+	POSITION posCurrent = m_oPieceTable.GetHeadPosition();
+	POSITION posPrev;
+	USPieceTableEntry oEntry;
+	unsigned int uiTotalLengthPassed;
+
+	uiTotalLengthPassed = 0;
+	while (posCurrent != nullptr)
+	{
+		posPrev = posCurrent;
+		oEntry = m_oPieceTable.GetNext(posCurrent);
+
+		if (uiLength > oEntry.uiLength)
+		{
+			uiLength -= oEntry.uiLength;
+			continue;
+		}
+
+		selectPos(posPrev, uiLength);
+		break;
+	}
 }
