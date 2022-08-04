@@ -5,13 +5,10 @@
 class UCAppendBuffer
 {
 	private:
-		unsigned int uiLengthPerArray;
-		unsigned int uiCurrentArrayLengthLeft;
-		TCHAR* pArrTszCurrentArray;
-		TCHAR* pTracker;
-		bool isInit;
-
-		USPieceTableEntry oEntryOut;
+		unsigned int m_uiLengthPerArray;
+		unsigned int m_uiCurrentArrayLengthLeft;
+		TCHAR* m_pArrTszCurrentArray;
+		TCHAR* m_pTracker;
 
 	public:
 		UCAppendBuffer();

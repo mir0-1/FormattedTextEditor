@@ -48,6 +48,9 @@
     <ClInclude Include="USPieceTableEntry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UCRelinkList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FormattedTextEditor.cpp">

@@ -196,6 +196,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UCAppendBuffer.h" />
+    <ClInclude Include="UCRelinkList.h" />
     <ClInclude Include="USPieceTableEntry.h" />
     <ClInclude Include="UCPieceTableManager.h" />
   </ItemGroup>

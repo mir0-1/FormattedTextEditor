@@ -2,16 +2,16 @@
 
 UCAppendBuffer::UCAppendBuffer()
 {
-	uiLengthPerArray = 256;
-	pArrTszCurrentArray = new TCHAR[uiLengthPerArray];
-	uiCurrentArrayLengthLeft = 0;
+	m_uiLengthPerArray = 256;
+	m_pArrTszCurrentArray = new TCHAR[m_uiLengthPerArray];
+	m_uiCurrentArrayLengthLeft = 0;
 }
 
 UCAppendBuffer::UCAppendBuffer(unsigned int uiInLengthPerArray)
 {
-	uiLengthPerArray = uiInLengthPerArray;
-	pArrTszCurrentArray = new TCHAR[uiLengthPerArray];
-	uiCurrentArrayLengthLeft = 0;
+	m_uiLengthPerArray = uiInLengthPerArray;
+	m_pArrTszCurrentArray = new TCHAR[m_uiLengthPerArray];
+	m_uiCurrentArrayLengthLeft = 0;
 }
 
 TCHAR* UCAppendBuffer::add(TCHAR** tszString, unsigned int* uiLength, bool bUpdateTracker)
@@ -19,36 +19,36 @@ TCHAR* UCAppendBuffer::add(TCHAR** tszString, unsigned int* uiLength, bool bUpda
 	unsigned int i;
 
 	if (bUpdateTracker)
-		pTracker = &pArrTszCurrentArray[uiLengthPerArray - uiCurrentArrayLengthLeft];
+		m_pTracker = &m_pArrTszCurrentArray[m_uiLengthPerArray - m_uiCurrentArrayLengthLeft];
 
 	for (i = 0; i < *uiLength; ++i)
 	{
-		if (uiCurrentArrayLengthLeft == 0)
+		if (m_uiCurrentArrayLengthLeft == 0)
 		{
-			pArrTszCurrentArray = new TCHAR[uiLengthPerArray];
-			pTracker = pArrTszCurrentArray;
-			uiCurrentArrayLengthLeft = uiLengthPerArray;
+			m_pArrTszCurrentArray = new TCHAR[m_uiLengthPerArray];
+			m_pTracker = m_pArrTszCurrentArray;
+			m_uiCurrentArrayLengthLeft = m_uiLengthPerArray;
 			break;
 		}
 
-		pArrTszCurrentArray[uiLengthPerArray - uiCurrentArrayLengthLeft] = (*tszString)[i];
-		uiCurrentArrayLengthLeft--;
+		m_pArrTszCurrentArray[m_uiLengthPerArray - m_uiCurrentArrayLengthLeft] = (*tszString)[i];
+		m_uiCurrentArrayLengthLeft--;
 	}
 
 
 	*uiLength -= i;
 	*tszString += i;
 
-	return pTracker;
+	return m_pTracker;
 }
 
 TCHAR* UCAppendBuffer::updateTracker()
 {
-	pTracker = &pArrTszCurrentArray[uiLengthPerArray - uiCurrentArrayLengthLeft];
-	return pTracker;
+	m_pTracker = &m_pArrTszCurrentArray[m_uiLengthPerArray - m_uiCurrentArrayLengthLeft];
+	return m_pTracker;
 }
 
 TCHAR* UCAppendBuffer::getTracker()
 {
-	return pTracker;
+	return m_pTracker;
 }

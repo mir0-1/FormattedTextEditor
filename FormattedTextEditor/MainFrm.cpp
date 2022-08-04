@@ -8,6 +8,7 @@
 
 #include "MainFrm.h"
 #include "UCPieceTableManager.h"
+#include "UCRelinkList.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
