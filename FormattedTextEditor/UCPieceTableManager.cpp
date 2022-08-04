@@ -2,6 +2,20 @@
 #include "UCPieceTableManager.h"
 
 
+void UCPieceTableManager::splitSelectedEntry()
+{
+	USPieceTableEntry oSelectedPte = m_oPieceTable.GetAt(m_posCurrent);
+	USPieceTableEntry oSecondSplitPartPte;
+
+	unsigned int uiSplitLengthLeft = oSelectedPte.uiLength - m_uiCharOffset;
+	oSelectedPte.uiLength = m_uiCharOffset;
+	m_oPieceTable.SetAt(m_posCurrent, oSelectedPte);
+
+	oSecondSplitPartPte.pszContent = oSelectedPte.pszContent + m_uiCharOffset;
+	oSecondSplitPartPte.uiLength = uiSplitLengthLeft;
+	m_oPieceTable.InsertAfter(m_posCurrent, oSecondSplitPartPte);
+}
+
 POSITION UCPieceTableManager::add(TCHAR* tszString, unsigned int uiLength)
 {
 	USPieceTableEntry oAddedPte, oSelectedPte;
@@ -68,18 +82,12 @@ POSITION UCPieceTableManager::add(TCHAR* tszString, unsigned int uiLength)
 		// case 4: insert between (add new entry, update existing entry)
 		else
 		{
-			unsigned int uiSplitLengthLeft = oSelectedPte.uiLength - m_uiCharOffset;
-			oSelectedPte.uiLength = m_uiCharOffset;
-			m_oPieceTable.SetAt(m_posCurrent, oSelectedPte);
-			
+			splitSelectedEntry();
+
 			oAddedPte.pszContent = pszThisTracker;
 			oAddedPte.uiLength = (uiPrevLength - uiLengthNotAdded);
 			m_posCurrent = m_oPieceTable.InsertAfter(m_posCurrent, oAddedPte);
-
-			oAddedPte.pszContent = oSelectedPte.pszContent + m_uiCharOffset;
-			oAddedPte.uiLength = uiSplitLengthLeft;
-			m_uiCharOffset = (uiPrevLength - uiLengthNotAdded);
-			m_oPieceTable.InsertAfter(m_posCurrent, oAddedPte);
+			m_uiCharOffset = oAddedPte.uiLength;
 		}
 
 		pszPrevTracker = pszThisTracker;

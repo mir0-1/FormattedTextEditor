@@ -10,6 +10,8 @@ class UCPieceTableManager
 		UCAppendBuffer m_oAppendBuffer;
 		POSITION m_posCurrent;
 		unsigned int m_uiCharOffset;
+
+		void splitSelectedEntry();
 	public:
 		POSITION add(TCHAR* tszString, unsigned int uiLength);
 		void selectPos(POSITION posInCurrentPos, unsigned int uiInCharOffset);
