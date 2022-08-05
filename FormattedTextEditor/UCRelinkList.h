@@ -6,7 +6,7 @@ class UCRelinkList : public CList<TYPE, ARG_TYPE>
 {
 	public:
 		void UnlinkNode(POSITION posNode);
-		void LinkNode(POSITION posNode, POSITION posPrev, POSITION posNext);
+		void RelinkNode(POSITION posNode);
 };
 
 template<class TYPE, class ARG_TYPE>
@@ -16,30 +16,37 @@ void UCRelinkList<TYPE, ARG_TYPE>::UnlinkNode(POSITION posNode)
 		return;
 
 	CNode* poThisNode = (CNode*)posNode;
+	CNode* poPrev = poThisNode->pPrev;
+	CNode* poNext = poThisNode->pNext;
 
-	if (poThisNode->pPrev != nullptr)
-		poThisNode->pPrev->pNext = poThisNode->pNext;
+	if (poPrev != nullptr)
+		poPrev->pNext = poNext;
+	else
+		m_pNodeHead = poNext;
 
-	if (poThisNode->pNext != nullptr)
-		poThisNode->pNext->pPrev = poThisNode->pPrev;
+	if (poNext != nullptr)
+		poNext->pPrev = poPrev;
+	else
+		m_pNodeTail = poPrev;
 }
 
 template<class TYPE, class ARG_TYPE>
-void UCRelinkList<TYPE, ARG_TYPE>::LinkNode(POSITION posNode, POSITION posPrev, POSITION posNext)
+void UCRelinkList<TYPE, ARG_TYPE>::RelinkNode(POSITION posNode)
 {
 	if (posNode == nullptr)
 		return;
 
 	CNode* poThisNode = (CNode*)posNode;
-	CNode* poPrev = (CNode*)posPrev;
-	CNode* poNext = (CNode*)posNext;
-
-	poThisNode->pPrev = poPrev;
-	poThisNode->pNext = poNext;
+	CNode* poPrev = poThisNode->pPrev;
+	CNode* poNext = poThisNode->pNext;
 
 	if (poPrev != nullptr)
 		poPrev->pNext = poThisNode;
+	else
+		m_pNodeHead = poThisNode;
 
 	if (poNext != nullptr)
-		poNext->poPrev = poThisNode;
+		poNext->pPrev = poThisNode;
+	else
+		m_pNodeTail = poThisNode;
 }
