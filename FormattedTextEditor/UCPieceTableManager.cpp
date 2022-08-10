@@ -16,6 +16,11 @@ void UCPieceTableManager::splitSelectedEntry()
 	m_oPieceTable.InsertAfter(m_posCurrent, oSecondSplitPartPte);
 }
 
+UCPieceTableManager::UCPieceTableManager() 
+	: m_oLineManager(static_cast<UCRORelinkList<USPieceTableEntry, USPieceTableEntry&>&>(m_oPieceTable))
+{
+}
+
 POSITION UCPieceTableManager::add(TCHAR* tszString, unsigned int uiLength)
 {
 	USPieceTableEntry oAddedPte, oSelectedPte;

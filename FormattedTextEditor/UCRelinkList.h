@@ -4,13 +4,15 @@
 template<class TYPE, class ARG_TYPE = const TYPE&>
 class UCRelinkList : public CList<TYPE, ARG_TYPE>
 {
+	typename CList<TYPE, ARG_TYPE>::CNode;
+
 	public:
-		void UnlinkNode(POSITION posNode);
-		void RelinkNode(POSITION posNode);
+		void Unlink(POSITION posNode);
+		void Relink(POSITION posNode);
 };
 
 template<class TYPE, class ARG_TYPE>
-void UCRelinkList<TYPE, ARG_TYPE>::UnlinkNode(POSITION posNode)
+void UCRelinkList<TYPE, ARG_TYPE>::Unlink(POSITION posNode)
 {
 	if (posNode == nullptr)
 		return;
@@ -31,7 +33,7 @@ void UCRelinkList<TYPE, ARG_TYPE>::UnlinkNode(POSITION posNode)
 }
 
 template<class TYPE, class ARG_TYPE>
-void UCRelinkList<TYPE, ARG_TYPE>::RelinkNode(POSITION posNode)
+void UCRelinkList<TYPE, ARG_TYPE>::Relink(POSITION posNode)
 {
 	if (posNode == nullptr)
 		return;
