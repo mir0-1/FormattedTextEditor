@@ -92,6 +92,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	uiLen6 = _tcslen(tsz);
 	ptm.add(tsz, uiLen6);
 
+
 	return 0;
 }
 

@@ -60,6 +60,15 @@
     <ClInclude Include="UCLineManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UCFontManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user_typedefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="USCharPosition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FormattedTextEditor.cpp">
@@ -90,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UCLineManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCFontManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

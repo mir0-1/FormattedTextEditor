@@ -1,5 +1,5 @@
 #pragma once
-#include <afxtempl.h>
+#include "user_typedefs.h"
 
 template<class TYPE, class ARG_TYPE = const TYPE&>
 class UCRelinkList : public CList<TYPE, ARG_TYPE>
@@ -7,17 +7,17 @@ class UCRelinkList : public CList<TYPE, ARG_TYPE>
 	typename CList<TYPE, ARG_TYPE>::CNode;
 
 	public:
-		void Unlink(POSITION posNode);
-		void Relink(POSITION posNode);
+		void Unlink(NODE_PTR pnNode);
+		void Relink(NODE_PTR pnNode);
 };
 
 template<class TYPE, class ARG_TYPE>
-void UCRelinkList<TYPE, ARG_TYPE>::Unlink(POSITION posNode)
+void UCRelinkList<TYPE, ARG_TYPE>::Unlink(NODE_PTR pnNode)
 {
 	if (posNode == nullptr)
 		return;
 
-	CNode* poThisNode = (CNode*)posNode;
+	CNode* poThisNode = (CNode*)pnNode;
 	CNode* poPrev = poThisNode->pPrev;
 	CNode* poNext = poThisNode->pNext;
 
@@ -33,12 +33,12 @@ void UCRelinkList<TYPE, ARG_TYPE>::Unlink(POSITION posNode)
 }
 
 template<class TYPE, class ARG_TYPE>
-void UCRelinkList<TYPE, ARG_TYPE>::Relink(POSITION posNode)
+void UCRelinkList<TYPE, ARG_TYPE>::Relink(NODE_PTR pnNode)
 {
-	if (posNode == nullptr)
+	if (pnNode == nullptr)
 		return;
 
-	CNode* poThisNode = (CNode*)posNode;
+	CNode* poThisNode = (CNode*)pnNode;
 	CNode* poPrev = poThisNode->pPrev;
 	CNode* poNext = poThisNode->pNext;
 
