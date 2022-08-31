@@ -10,11 +10,12 @@ class UCPieceTableManager
 	private:
 		UCAppendBuffer m_oAppendBuffer;
 		UCRelinkList<USPieceTableEntry, USPieceTableEntry&> m_oPieceTable;
-		UCLineManager m_oLineManager;
 		USCharPosition m_oTextPos;
 
 		void splitSelectedEntry();
 	public:
+		UCLineManager m_oLineManager;
+
 		UCPieceTableManager();
 		NODE_PTR add(TCHAR* tszString, unsigned int uiLength);
 

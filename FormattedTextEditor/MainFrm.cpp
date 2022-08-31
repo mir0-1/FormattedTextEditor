@@ -9,6 +9,8 @@
 #include "MainFrm.h"
 #include "UCPieceTableManager.h"
 #include "UCRelinkList.h"
+#include "UCNonNullList.h"
+#include "UCNonEmptyList.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,31 +69,19 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	unsigned int uiLen8;
 
 	ptm.selectPos(nullptr, 0);
-	ptm.add(tsz, uiLen1);
+	//ptm.add(tsz, uiLen1);
 
-	_tcscpy(tsz, TEXT(" a test"));
+	_tcscpy(tsz, TEXT("This is a very very long line of text, I made it so with hopes that word wrap will correctly work. Vecherai Rado."));
 	uiLen2 = _tcslen(tsz);
 	ptm.add(tsz, uiLen2);
+	ptm.selectPosByCharCount(10);
+	ptm.add(TEXT("example"), 8);
 
-	_tcscpy(tsz, TEXT(" hell yeah"));
-	uiLen3 = _tcslen(tsz);
-	ptm.add(tsz, uiLen3);
+	//UCNonEmptyList<int, int> list;
 
-	ptm.selectPosByCharCount(uiLen1);
-	_tcscpy(tsz, TEXT("weeb"));
-	uiLen4 = _tcslen(tsz);
-	ptm.add(tsz, uiLen4);
+	//list.AddHead(5);
 
-	ptm.selectPosByCharCount(uiLen1 + uiLen2 + uiLen3 + uiLen4);
-	_tcscpy(tsz, TEXT(" added"));
-	uiLen5 = _tcslen(tsz);
-	ptm.add(tsz, uiLen5);
-
-	ptm.selectPosByCharCount(uiLen1 + 2);
-	_tcscpy(tsz, TEXT("split"));
-	uiLen6 = _tcslen(tsz);
-	ptm.add(tsz, uiLen6);
-
+	//ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 
 	return 0;
 }

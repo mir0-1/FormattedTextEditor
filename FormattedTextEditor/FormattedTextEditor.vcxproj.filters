@@ -48,13 +48,7 @@
     <ClInclude Include="USPieceTableEntry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCRelinkList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="USLineEntry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UCRORelinkList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UCLineManager.h">
@@ -67,6 +61,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="USCharPosition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCNonNullList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCRelinkList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCROList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCNonEmptyList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,13 +101,19 @@
     <ClCompile Include="UCPieceTableManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCRORelinkList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UCLineManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UCFontManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USLineEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USCharPosition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCNonEmptyList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

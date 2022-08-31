@@ -1,28 +1,29 @@
 #include "UCLineManager.h"
-#include "USTextPosition.h"
+#include "USCharPosition.h"
 
-UCLineManager::UCLineManager(UCRORelinkList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable, unsigned int uiMaxRowLength)
+UCLineManager::UCLineManager(UCROList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable, unsigned int uiMaxRowLength)
 	: m_roPieceTable(roPieceTable)
 {
+	m_uiMaxLineWidth = uiMaxRowLength;
 }
 
 void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 {
-	NODE_PTR pnCurrentPte;
-	USPieceTableEntry oCurrentPte;
-	USCharPosition oSpacePos;
-	unsigned int i;
-	unsigned int uiAccumulatedWidth;
+	NODE_PTR pnLineIterator = pnStartLine, pnPteIterator;
+	unsigned int uiAccumulatedWidth, i;
 
-	if (m_oLines.GetCount() == 0)
+	while (pnLineIterator != pnEndLine)
 	{
-		pnCurrentPte = m_roPieceTable.GetHeadPosition();
 		uiAccumulatedWidth = 0;
 
-		while (pnCurrentPte != nullptr)
+		USLineEntry& oCurrentLine = m_oLines.GetNext(pnLineIterator);
+		pnPteIterator = oCurrentLine.m_oCharPos.m_pnCurrentNode;
+		i = oCurrentLine.m_oCharPos.m_uiCharOffset;
+
+		if (pnPteIterator != nullptr)
 		{
-			oCurrentPte = m_roPieceTable.GetNext(pnCurrentPte);
-			for (i = 0; i < oCurrentPte.uiLength; i++)
+			const USPieceTableEntry& oCurrentPte = m_roPieceTable.GetNext(pnPteIterator);
+			for (;i < oCurrentPte.uiLength; i++)
 			{
 				uiAccumulatedWidth++;
 

@@ -17,7 +17,7 @@ void UCPieceTableManager::splitSelectedEntry()
 }
 
 UCPieceTableManager::UCPieceTableManager() 
-	: m_oLineManager((UCRORelinkList<USPieceTableEntry, USPieceTableEntry&>&)m_oPieceTable, 300)
+	: m_oLineManager((UCROList<USPieceTableEntry, USPieceTableEntry&>&)m_oPieceTable, 20)
 {
 }
 

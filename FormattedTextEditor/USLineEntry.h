@@ -1,12 +1,16 @@
 #pragma once
-#include <afxtempl.h>
+#include "user_typedefs.h"
+#include "USCharPosition.h"
 
-typedef POSITION NODE_PTR;
 
-struct USLineEntry
+class USLineEntry
 {
-	NODE_PTR pnNode;
-	unsigned int uiCharOffset;
-	long uiMaxTmHeight;
-	bool bIsValidated;
+	public:
+		USCharPosition m_oCharPos;
+		long m_uiMaxTmHeight;
+		bool m_bIsValidated;
+
+		USLineEntry();
+		USLineEntry(USCharPosition& oCharPos, long uiMaxTmHeight, bool isValidated);
+
 };

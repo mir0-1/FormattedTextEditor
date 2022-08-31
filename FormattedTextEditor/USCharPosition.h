@@ -1,8 +1,12 @@
 #pragma once
 #include "user_typedefs.h"
 
-struct USCharPosition
+class USCharPosition
 {
-	NODE_PTR m_pnCurrentNode;
-	unsigned int m_uiCharOffset;
+	public:
+		NODE_PTR m_pnCurrentNode;
+		unsigned int m_uiCharOffset;
+
+		USCharPosition();
+		USCharPosition(NODE_PTR pnCurrentNode, unsigned int uiCharOffset);
 };
