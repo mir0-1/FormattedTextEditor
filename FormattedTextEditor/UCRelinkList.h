@@ -4,39 +4,38 @@
 template<class TYPE, class ARG_TYPE = const TYPE&>
 class UCRelinkList : public CList<TYPE, ARG_TYPE>
 {
-	protected:
-		using CList<TYPE, ARG_TYPE>::CNode;
-
 	public:
-		void UCRelinkList<TYPE, ARG_TYPE>::Unlink(NODE_PTR pnNode)
+		void UCRelinkList<TYPE, ARG_TYPE>::Unlink(NODE_PTR pnStartNode, NODE_PTR pnEndNode)
 		{
-			if (posNode == nullptr || posNode == m_pNodeHead || posNode == m_pNodeTail)
+			if (pnNode == nullptr || pnStartNode == nullptr || pnEndNode == nullptr)
 				return;
 
-			CNode* poThisNode = (CNode*)pnNode;
-			CNode* poPrev = poThisNode->pPrev;
-			CNode* poNext = poThisNode->pNext;
+			CNode* poStartNode = (CNode*)pnStartNode;
+			CNode* poEndNode = (CNode*)pnEndNode;
+			CNode* poStartNodePrev = (CNode*)poStartNode->pPrev;
+			CNode* poEndNodeNext = (CNode*)poEndNode->pNext;
 
-			if (poPrev != nullptr)
-				poPrev->pNext = poNext;
-
-			if (poNext != nullptr)
-				poNext->pPrev = poPrev;
+			if (poStartNodePrev && poEndNodeNext)
+			{
+				poStartNodePrev->pNext = poEndNodeNext;
+				poEndNodeNext->pPrev = poStartNodePrev;
+			}
 		}
 
-		void UCRelinkList<TYPE, ARG_TYPE>::Relink(NODE_PTR pnNode)
+		void UCRelinkList<TYPE, ARG_TYPE>::Relink(NODE_PTR pnStartNode, NODE_PTR pnEndNode)
 		{
-			if (pnNode == nullptr || posNode == m_pNodeHead || posNode == m_pNodeTail)
+			if (pnNode == nullptr || pnStartNode == nullptr || pnEndNode == nullptr)
 				return;
 
-			CNode* poThisNode = (CNode*)pnNode;
-			CNode* poPrev = poThisNode->pPrev;
-			CNode* poNext = poThisNode->pNext;
+			CNode* poStartNode = (CNode*)pnStartNode;
+			CNode* poEndNode = (CNode*)pnEndNode;
+			CNode* poStartNodePrev = (CNode*)poStartNode->pPrev;
+			CNode* poEndNodeNext = (CNode*)poEndNode->pNext;
 
-			if (poPrev != nullptr)
-				poPrev->pNext = poThisNode;
-
-			if (poNext != nullptr)
-				poNext->pPrev = poThisNode;
+			if (poStartNodePrev && poEndNodeNext)
+			{
+				poStartNodePrev->pNext = pnStartNode;
+				poEndNodeNext->pPrev = pnEndNode;
+			}
 		}
 };

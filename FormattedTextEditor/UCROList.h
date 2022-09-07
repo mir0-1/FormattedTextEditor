@@ -2,17 +2,17 @@
 #include "user_typedefs.h"
 
 template<class TYPE, class ARG_TYPE = const TYPE&>
-class UCROList : public CList<TYPE, ARG_TYPE>
+class UCROList : private CList<TYPE, ARG_TYPE>
 {
 	public:
-		const TYPE& GetHead(NODE_PTR pnNode) const
+		const TYPE& GetHead() const
 		{
-			return CList::GetHead(pnNode);
+			return CList::GetHead();
 		}
 
-		const TYPE& GetTail(NODE_PTR pnNode) const
+		const TYPE& GetTail() const
 		{
-			return CList::GetTail(pnNode);
+			return CList::GetTail();
 		}
 
 		const TYPE& GetAt(NODE_PTR pnNode) const
@@ -30,5 +30,19 @@ class UCROList : public CList<TYPE, ARG_TYPE>
 			return CList::GetPrev(pnNode);
 		}
 
+		using CList::Dump;
+		using CList::Find;
+		using CList::FindIndex;
+		using CList::GetCount;
+		using CList::GetHeadPosition;
+		using CList::GetNext;
+		using CList::GetPrev;
+		using CList::GetRuntimeClass;
+		using CList::GetSize;
+		using CList::GetTailPosition;
+		using CList::GetThisClass;
+		using CList::IsEmpty;
+		using CList::IsKindOf;
+		using CList::IsSerializable;
 };
 

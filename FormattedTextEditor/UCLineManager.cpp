@@ -27,7 +27,6 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 			{
 				uiAccumulatedWidth++;
 
-
 			}
 		}
 	}

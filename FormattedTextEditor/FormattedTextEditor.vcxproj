@@ -111,11 +111,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -224,12 +224,13 @@
     <ClCompile Include="UCAppendBuffer.cpp" />
     <ClCompile Include="UCFontManager.cpp" />
     <ClCompile Include="UCLineManager.cpp" />
-    <ClCompile Include="UCNonEmptyList.cpp" />
     <ClCompile Include="UCPieceTableManager.cpp" />
     <ClCompile Include="USCharPosition.cpp" />
     <ClCompile Include="USLineEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="FormattedTextEditor.reg" />
     <None Include="res\FormattedTextEditor.rc2" />
   </ItemGroup>
