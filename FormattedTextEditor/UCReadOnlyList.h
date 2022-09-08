@@ -25,12 +25,12 @@ class UCReadOnlyList
 			return m_oCompositeList.GetAt(pnNode);
 		}
 
-		const TYPE& GetNext(NODE_PTR pnNode) const
+		const TYPE& GetNext(NODE_PTR& pnNode) const
 		{
 			return m_oCompositeList.GetNext(pnNode);
 		}
 
-		const TYPE& GetPrev(NODE_PTR pnNode) const
+		const TYPE& GetPrev(NODE_PTR& pnNode) const
 		{
 			return m_oCompositeList.GetPrev(pnNode);
 		}

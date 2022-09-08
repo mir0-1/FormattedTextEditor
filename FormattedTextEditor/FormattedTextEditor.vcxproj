@@ -198,10 +198,9 @@
     <ClInclude Include="UCAppendBuffer.h" />
     <ClInclude Include="UCFontManager.h" />
     <ClInclude Include="UCLineManager.h" />
-    <ClInclude Include="UCNonEmptyList.h" />
     <ClInclude Include="UCNonNullList.h" />
     <ClInclude Include="UCRelinkList.h" />
-    <ClInclude Include="UCROList.h" />
+    <ClInclude Include="UCReadOnlyList.h" />
     <ClInclude Include="user_typedefs.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
@@ -229,8 +228,6 @@
     <ClCompile Include="USLineEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="FormattedTextEditor.reg" />
     <None Include="res\FormattedTextEditor.rc2" />
   </ItemGroup>

@@ -70,15 +70,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	_tcscpy(tsz, TEXT("This is a very very long line of text, I made it so with hopes that word wrap will correctly work. Vecherai Rado."));
 	uiLen2 = _tcslen(tsz);
-	ptm.add(tsz, uiLen2);
+	ptm.Add(tsz, uiLen2);
 	ptm.selectPosByCharCount(10);
-	ptm.add(TEXT("example"), 8);
-
-	//UCNonEmptyList<int, int> list;
-
-	//list.AddHead(5);
-
-	//ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
+	ptm.Add(TEXT("example"), 8);
+	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 
 	return 0;
 }

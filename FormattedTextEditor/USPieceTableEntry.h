@@ -12,6 +12,6 @@ enum UEPieceTableEntryType
 class USPieceTableEntry
 {
 	public:
-		TCHAR* pszContent;
-		unsigned int uiLength;
+		TCHAR* pszContent = nullptr;
+		unsigned int uiLength = 0;
 };

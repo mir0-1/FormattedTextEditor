@@ -30,9 +30,7 @@ class UCNonNullList : public UCRelinkList<TYPE, ARG_TYPE>
 				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddTail(m_typeEmptyListDefault);
 
 			else if (pnPosition == nullptr)
-			{
 				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddTail(m_typeNextDefault);
-			}
 
 			return UCRelinkList<TYPE, ARG_TYPE>::GetNext(pnPosition);
 		}
@@ -42,25 +40,23 @@ class UCNonNullList : public UCRelinkList<TYPE, ARG_TYPE>
 			if (GetCount() == 0)
 				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddHead(m_typeEmptyListDefault);
 
-			if (pnPosition == nullptr)
-			{
+			else if (pnPosition == nullptr)
 				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddHead(m_typePrevDefault);
-			}
 
 			return UCRelinkList<TYPE, ARG_TYPE>::GetPrev(pnPosition);
 		}
 		
-		TYPE& getEmptyListDefault()
+		TYPE& GetEmptyListDefault()
 		{
 			return m_typeEmptyListDefault;
 		}
 
-		TYPE& getNextDefault()
+		TYPE& GetNextDefault()
 		{
 			return m_typeNextDefault;
 		}
 
-		TYPE& getPrevDefault()
+		TYPE& GetPrevDefault()
 		{
 			return m_typePrevDefault;
 		}

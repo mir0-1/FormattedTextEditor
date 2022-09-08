@@ -69,10 +69,7 @@
     <ClInclude Include="UCRelinkList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCROList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UCNonEmptyList.h">
+    <ClInclude Include="UCReadOnlyList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,8 +116,6 @@
     <None Include="res\FormattedTextEditor.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FormattedTextEditor.rc">

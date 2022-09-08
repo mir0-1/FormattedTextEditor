@@ -14,7 +14,7 @@ class UCAppendBuffer
 		UCAppendBuffer();
 		UCAppendBuffer(unsigned int uiLengthPerArray);
 
-		TCHAR* add(TCHAR** tszString, unsigned int* uiLength, bool bUpdateTracker);
-		TCHAR* updateTracker();
-		TCHAR* getTracker();
+		TCHAR* Add(TCHAR** tszString, unsigned int* uiLength, bool bUpdateTracker);
+		TCHAR* UpdateTracker();
+		TCHAR* GetTracker();
 };
