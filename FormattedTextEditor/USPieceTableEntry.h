@@ -1,4 +1,5 @@
 #pragma once
+#include "USFontInfo.h"
 
 enum UEPieceTableEntryType
 {
@@ -12,6 +13,7 @@ enum UEPieceTableEntryType
 class USPieceTableEntry
 {
 	public:
-		TCHAR* pszContent = nullptr;
-		unsigned int uiLength = 0;
+		USFontInfo* m_poFontInfo = nullptr;
+		TCHAR* m_pszContent = nullptr;
+		unsigned int m_uiLength = 0;
 };

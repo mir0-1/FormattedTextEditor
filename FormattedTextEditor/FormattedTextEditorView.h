@@ -14,6 +14,7 @@ protected: // create from serialization only
 // Attributes
 public:
 	CFormattedTextEditorDoc* GetDocument() const;
+	CMFCFontComboBox m_fcb;
 
 // Operations
 public:
@@ -23,10 +24,11 @@ public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
+	virtual int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
-
+	void OnFontCommand();
 // Implementation
 public:
 	virtual ~CFormattedTextEditorView();

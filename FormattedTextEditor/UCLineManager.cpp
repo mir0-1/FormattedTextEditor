@@ -28,11 +28,11 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 		{
 			pnPtePrev = pnPteCurrent;
 			const USPieceTableEntry& oCurrentPte = m_oPieceTable.GetNext(pnPteCurrent);
-			for (;oCurrentPte.pszContent && i < oCurrentPte.uiLength; i++)
+			for (;oCurrentPte.m_pszContent && i < oCurrentPte.m_uiLength; i++)
 			{
 				uiAccumulatedWidth++;
 
-				if (oCurrentPte.pszContent[i] == ' ')
+				if (oCurrentPte.m_pszContent[i] == ' ')
 				{
 					oLastSpacePos.m_pnCurrentNode = pnPtePrev;
 					oLastSpacePos.m_uiCharOffset = i;

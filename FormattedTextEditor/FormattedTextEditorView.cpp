@@ -27,6 +27,8 @@ BEGIN_MESSAGE_MAP(CFormattedTextEditorView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_CBN_SELCHANGE(55555, &CFormattedTextEditorView::OnFontCommand)
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // CFormattedTextEditorView construction/destruction
@@ -47,6 +49,17 @@ BOOL CFormattedTextEditorView::PreCreateWindow(CREATESTRUCT& cs)
 	//  the CREATESTRUCT cs
 
 	return CView::PreCreateWindow(cs);
+}
+
+int CFormattedTextEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	RECT r = { 20, 20, 200, 100 };
+	m_fcb.Create(CBS_DROPDOWNLIST | WS_VISIBLE | WS_VSCROLL, r, this, 55555);
+
+	return 0;
 }
 
 // CFormattedTextEditorView drawing
@@ -78,6 +91,12 @@ void CFormattedTextEditorView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo
 void CFormattedTextEditorView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
 	// TODO: add cleanup after printing
+}
+
+void CFormattedTextEditorView::OnFontCommand()
+{
+	CMFCFontInfo* fontInfo = m_fcb.GetSelFont();
+	CString name = fontInfo->m_strName;
 }
 
 

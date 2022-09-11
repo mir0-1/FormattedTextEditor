@@ -14,13 +14,15 @@ class UCPieceTableManager
 		UCAppendBuffer m_oAppendBuffer;
 		USCharPosition m_oCurrentTextPos;
 
-		void splitSelectedEntry();
+		void splitAtCurrentTextPos();
 	public:
 		UCLineManager m_oLineManager;
-		NODE_PTR Add(TCHAR* tszString, unsigned int uiLength);
 
 		UCPieceTableManager();
-		void selectPos(NODE_PTR pnCurrentNode, unsigned int uiCharOffset);
-		void selectPosByCharCount(unsigned int uiLength);
+
+		NODE_PTR Add(TCHAR* tszString, unsigned int uiLength);
+		void SelectPos(NODE_PTR pnCurrentNode, unsigned int uiCharOffset);
+		void SelectPosByCharCount(unsigned int uiLength);
+		void Format(NODE_PTR);
 };
 
