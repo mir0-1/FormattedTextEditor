@@ -23,6 +23,5 @@ class UCPieceTableManager
 		NODE_PTR Add(TCHAR* tszString, unsigned int uiLength);
 		void SelectPos(NODE_PTR pnCurrentNode, unsigned int uiCharOffset);
 		void SelectPosByCharCount(unsigned int uiLength);
-		void Format(NODE_PTR);
 };
 

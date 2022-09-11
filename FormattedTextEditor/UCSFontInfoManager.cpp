@@ -1,6 +1,8 @@
 #include "UCSFontInfoManager.h"
 #include "user_typedefs.h"
 
+CList<USFontInfo, USFontInfo&> UCSFontInfoManager::m_oFontInfoList;
+
 USFontInfo* UCSFontInfoManager::CreateFontInfo(CString& poStrName, unsigned int uiSize)
 {
 	USFontInfo oTemp(poStrName, uiSize);

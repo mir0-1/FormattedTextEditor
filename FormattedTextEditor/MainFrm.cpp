@@ -74,7 +74,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	uiLen2 = _tcslen(tsz);
 	ptm.Add(tsz, uiLen2);
 	ptm.SelectPosByCharCount(10);
-	ptm.Add(TEXT("example"), 8);
+	//ptm.Add(TEXT("example"), 8);
 	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 
 	return 0;

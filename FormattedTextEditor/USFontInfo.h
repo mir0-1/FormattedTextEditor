@@ -1,10 +1,11 @@
 #pragma once
-#include <afxstr.h>
+#include <afxtempl.h>
 class USFontInfo
 {
 	public:
+		USFontInfo();
 		USFontInfo(CString& poStrName, unsigned int uiSize);
-		bool operator==(USFontInfo& oFontInfoOther);
+		bool operator==(const USFontInfo& oOtherFontInfo) const;
 
 	private:
 		CString m_poStrName;
