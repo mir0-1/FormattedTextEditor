@@ -206,6 +206,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="USFontInfo.h" />
+    <ClInclude Include="USFPieceTableAdd.h" />
     <ClInclude Include="USLineEntry.h" />
     <ClInclude Include="USPieceTableEntry.h" />
     <ClInclude Include="UCPieceTableManager.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="UCPieceTableManager.cpp" />
     <ClCompile Include="USCharPosition.cpp" />
     <ClCompile Include="USFontInfo.cpp" />
+    <ClCompile Include="USFPieceTableAdd.cpp" />
     <ClCompile Include="USLineEntry.cpp" />
   </ItemGroup>
   <ItemGroup>

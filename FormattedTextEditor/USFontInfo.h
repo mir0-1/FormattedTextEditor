@@ -4,10 +4,11 @@ class USFontInfo
 {
 	public:
 		USFontInfo();
-		USFontInfo(CString& poStrName, unsigned int uiSize);
+		USFontInfo(TCHAR* ptszStrName, unsigned int uiFontSize);
 		bool operator==(const USFontInfo& oOtherFontInfo) const;
+		bool operator!=(const USFontInfo& oOtherFontInfo) const;
 
 	private:
-		CString m_poStrName;
+		TCHAR m_ptszStrName[128];
 		unsigned int m_uiSize;
 };

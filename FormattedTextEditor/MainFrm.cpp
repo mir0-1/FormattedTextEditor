@@ -41,6 +41,13 @@ CMainFrame::~CMainFrame()
 
 }
 
+class UCDebugNode // only used for "Add watch" in debugger. Remove later.
+{
+	UCDebugNode* pPrev;
+	UCDebugNode* pNext;
+	USPieceTableEntry data;
+};
+
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
@@ -55,25 +62,25 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
 
 	UCPieceTableManager ptm;
+	TCHAR tsz[256];
 
-
-	TCHAR tsz[256] = TEXT("This is");
-	unsigned int uiLen1 = _tcslen(tsz);
-	unsigned int uiLen2;
-	unsigned int uiLen3;
-	unsigned int uiLen4;
-	unsigned int uiLen5;
-	unsigned int uiLen6;
-	unsigned int uiLen7;
-	unsigned int uiLen8;
-
-	ptm.SelectPos(nullptr, 0);
 	//ptm.add(tsz, uiLen1);
 
-	_tcscpy(tsz, TEXT("This is a very very long line of text, I made it so with hopes that word wrap will correctly work. Vecherai Rado."));
-	uiLen2 = _tcslen(tsz);
-	ptm.Add(tsz, uiLen2);
-	ptm.SelectPosByCharCount(10);
+	_tcscpy(tsz, TEXT("This is a very very , I made it so with hopes that word wrap "));
+	ptm.Add(tsz, _tcslen(tsz));
+	ptm.SelectCharPosByCharCount(20);
+	_tcscpy(tsz, TEXT("long line of text"));
+	ptm.Add(tsz, _tcslen(tsz));
+	ptm.SelectCharPosByCharCount(112);
+	_tcscpy(tsz, TEXT("will correctly work. Vecherai Rado."));
+	ptm.Add(tsz, _tcslen(tsz));
+
+	UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
+	USCharPosition oStart, oEnd;
+	ptm.CharCountToCharPos(oStart, 15);
+	ptm.CharCountToCharPos(oEnd, 31);
+	ptm.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
+	//ptm.SelectPosByCharCount(10);
 	//ptm.Add(TEXT("example"), 8);
 	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 

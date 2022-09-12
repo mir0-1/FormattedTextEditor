@@ -4,7 +4,7 @@
 class USCharPosition
 {
 	public:
-		NODE_PTR m_pnCurrentNode;
+		NODE_PTR m_pnNode;
 		unsigned int m_uiCharOffset;
 
 		USCharPosition();

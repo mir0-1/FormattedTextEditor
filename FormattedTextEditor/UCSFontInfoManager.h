@@ -7,6 +7,6 @@ class UCSFontInfoManager
 		static CList<USFontInfo, USFontInfo&> m_oFontInfoList;
 
 	public:
-		static USFontInfo* CreateFontInfo(CString& poStrName, unsigned int uiSize);
+		static USFontInfo* SetFontInfo(TCHAR* ptszStrName, unsigned int uiSize);
 };
 
