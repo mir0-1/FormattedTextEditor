@@ -61,7 +61,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
 
-	UCPieceTableManager ptm;
+	UCPieceTableManager ptm(this->GetDC());
 	TCHAR tsz[256];
 
 	//ptm.add(tsz, uiLen1);
@@ -77,12 +77,12 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
 	USCharPosition oStart, oEnd;
-	ptm.CharCountToCharPos(oStart, 15);
-	ptm.CharCountToCharPos(oEnd, 31);
+	ptm.GetAbsoluteCharPos(&oStart, 15);
+	ptm.GetAbsoluteCharPos(&oEnd, 31);
 	ptm.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
 	//ptm.SelectPosByCharCount(10);
 	//ptm.Add(TEXT("example"), 8);
-	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
+	//ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 
 	return 0;
 }

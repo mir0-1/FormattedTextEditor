@@ -9,6 +9,8 @@ class USFontInfo
 		bool operator!=(const USFontInfo& oOtherFontInfo) const;
 
 	private:
-		TCHAR m_ptszStrName[128];
-		unsigned int m_uiSize;
+		TCHAR m_ptszStrName[32];
+		unsigned int m_uiPointSize;
+
+		friend class UCSFontInfoManager;
 };

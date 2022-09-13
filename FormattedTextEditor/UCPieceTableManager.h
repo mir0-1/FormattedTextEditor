@@ -14,6 +14,7 @@ class UCPieceTableManager
 
 		UCAppendBuffer m_oAppendBuffer;
 		USCharPosition m_oCurrentTextPos;
+		CDC* poDC;
 
 		NODE_PTR SplitAt(USCharPosition& roCharPos);
 		void CaseAdd_EmptyTable(USFPieceTableAdd& roAddInfo);
@@ -25,11 +26,11 @@ class UCPieceTableManager
 	public:
 		UCLineManager m_oLineManager;
 
-		UCPieceTableManager();
+		UCPieceTableManager(CDC *poDC);
 
 		NODE_PTR Add(TCHAR* tszString, unsigned int uiLength);
-		void SelectCharPosByCharCount(unsigned int uiLength);
+		void GetAbsoluteCharPos(USCharPosition *poCharPos, unsigned int uiLength);
 		void SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize);
-		void CharCountToCharPos(USCharPosition& roCharPos, unsigned int uiLength);
+		void SelectCharPosByCharCount(unsigned int uiLength);
 };
 

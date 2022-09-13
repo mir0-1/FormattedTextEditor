@@ -1,5 +1,6 @@
 #pragma once
 #include "USFontInfo.h"
+#include <afxwin.h>
 
 class UCSFontInfoManager
 {
@@ -8,5 +9,6 @@ class UCSFontInfoManager
 
 	public:
 		static USFontInfo* SetFontInfo(TCHAR* ptszStrName, unsigned int uiSize);
+		static HFONT ToHFont(USFontInfo* poFontInfo, CDC* poDc);
 };
 
