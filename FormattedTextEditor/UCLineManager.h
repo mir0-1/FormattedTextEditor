@@ -1,15 +1,15 @@
 #pragma once
-#include "UCReadOnlyList.h"
 #include "USPieceTableEntry.h"
 #include "USLineEntry.h"
 #include "UCNonNullList.h"
 #include "UCGrowableTcharArray.h"
+#include "UCReadOnlyList.h"
 #include <afxwin.h>
 
 class UCLineManager
 {
 	private:
-		UCReadOnlyList<USPieceTableEntry, USPieceTableEntry&> m_oPieceTable;
+		UCReadOnlyRelinkList<USPieceTableEntry, USPieceTableEntry&> m_oPieceTable;
 		USCharPosition m_oDefaultPosition;
 		USLineEntry m_oDefaultLine;
 		UCNonNullList<USLineEntry, USLineEntry&> m_oLines;
