@@ -88,35 +88,43 @@ int UCLineManager::GetLineBreakStrLen()
 void UCLineManager::GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength)
 {
 	NODE_PTR pnCurrent;
-	NODE_PTR pnPrev;
-	USPieceTableEntry oEntry;
-	unsigned int uiTotalLengthPassed;
+	NODE_PTR pnPrev = nullptr;
+	const USPieceTableEntry* poEntry = nullptr;
+	unsigned int uiInitialCharOffset;
 
 	if (poResult == nullptr)
 		return;
 
 	if (poStart == nullptr)
+	{
 		pnCurrent = m_oPieceTable.GetHeadPosition();
+		uiInitialCharOffset = 0;
+	}
 	else
 	{
 		pnCurrent = poStart->m_pnNode;
-		uiLength += poStart->m_uiCharOffset;
+		uiInitialCharOffset = poStart->m_uiCharOffset;
 	}
 
-	uiTotalLengthPassed = 0;
 	while (pnCurrent != nullptr)
 	{
-		pnPrev = pnCurrent;
-		oEntry = m_oPieceTable.GetNext(pnCurrent);
+		if (pnPrev != nullptr)
+			uiLength -= poEntry->m_uiLength;
 
-		if (uiLength > oEntry.m_uiLength)
-			uiLength -= oEntry.m_uiLength;
-		else
+		pnPrev = pnCurrent;
+		poEntry = &m_oPieceTable.GetNext(pnCurrent);
+
+		if (uiLength <= poEntry->m_uiLength - uiInitialCharOffset)
 			break;
 
+		if (uiInitialCharOffset)
+			uiInitialCharOffset = 0;
 	}
 
-	poResult->m_pnNode = pnCurrent;
+	if (uiLength > poEntry->m_uiLength)
+		uiLength = poEntry->m_uiLength;
+
+	poResult->m_pnNode = pnPrev;
 	poResult->m_uiCharOffset = uiLength;
 }
 
