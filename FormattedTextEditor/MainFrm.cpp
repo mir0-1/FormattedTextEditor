@@ -79,10 +79,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	USCharPosition oStart, oEnd;
 	ptm.GetAbsoluteCharPos(&oStart, 15);
 	ptm.GetAbsoluteCharPos(&oEnd, 31);
-	ptm.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
+	//ptm.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
 	//ptm.SelectPosByCharCount(10);
 	//ptm.Add(TEXT("example"), 8);
-	//ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
+	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 
 	return 0;
 }

@@ -18,7 +18,7 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 {
 	NODE_PTR pnLineCurrent = pnStartLine, pnPteCurrent, pnPtePrev;
 	USCharPosition oLineBreakChar;
-	unsigned int uiAppendedLength = 0;
+	unsigned int uiAppendedLength = 0, uiPrevAppendedLength;
 	int iLineBreakLength = -1, iPrevLineBreakLength = -1;
 	bool bLineWidthLimitReached = false;
 
@@ -55,13 +55,12 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 			{
 				bLineWidthLimitReached = false;
 
-				USCharPosition oEndLinePos;
-				USCharPosition oCurrentPtePos(pnPteCurrent, uiAppendedLength);
+				USCharPosition oBreakLinePos;
 
-				GetRelativeCharPos(&oCurrentPtePos, &oEndLinePos, uiAppendedLength);
+				GetRelativeCharPos(&oCurrentLine.m_oCharPos, &oBreakLinePos, uiAppendedLength);
 				USLineEntry& oNextLine = m_oLines.GetNext(pnLineCurrent);
-				oNextLine.m_oCharPos.m_pnNode = oEndLinePos.m_pnNode;
-				oNextLine.m_oCharPos.m_uiCharOffset = oEndLinePos.m_uiCharOffset;
+				oNextLine.m_oCharPos.m_pnNode = oBreakLinePos.m_pnNode;
+				oNextLine.m_oCharPos.m_uiCharOffset = oBreakLinePos.m_uiCharOffset;
 
 				m_oLineAsString.Clear();
 			}
@@ -128,8 +127,4 @@ void UCLineManager::GetRelativeCharPos(USCharPosition* poStart, USCharPosition* 
 	poResult->m_uiCharOffset = uiLength;
 }
 
-void UCLineManager::CalcLine(USLineEntry& roLineEntry)
-{
-
-}
 

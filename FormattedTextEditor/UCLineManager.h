@@ -24,7 +24,6 @@ class UCLineManager
 		UCLineManager(CList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable, unsigned int uiMaxLineWidth, CDC *poDC);
 
 		void RecalcLines(NODE_PTR posStartLine, NODE_PTR posEndLine);
-		void CalcLine(USLineEntry& roLineEntry);
 		int GetLineBreakStrLen();
 		void GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength);
 };
