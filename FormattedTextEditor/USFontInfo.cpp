@@ -3,18 +3,18 @@
 USFontInfo::USFontInfo()
 {
 	m_ptszStrName[0] = '\0';
-	m_uiPointSize = 0;
+	m_lHeight = 0;
 }
 
-USFontInfo::USFontInfo(TCHAR* ptszStrName, unsigned int uiSize)
+USFontInfo::USFontInfo(TCHAR* ptszStrName, long lHeight)
 {
 	_tcscpy(m_ptszStrName, ptszStrName);
-	m_uiPointSize = uiSize;
+	m_lHeight = lHeight;
 }
 
 bool USFontInfo::operator==(const USFontInfo& oOtherFontInfo) const
 {
-	if (oOtherFontInfo.m_uiPointSize == m_uiPointSize)
+	if (oOtherFontInfo.m_lHeight == m_lHeight)
 		return false;
 
 	if (oOtherFontInfo.m_ptszStrName == m_ptszStrName)

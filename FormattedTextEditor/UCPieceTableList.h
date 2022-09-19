@@ -2,15 +2,14 @@
 #include "UCRelinkList.h"
 #include "USPieceTableEntry.h"
 #include "UCAppendBuffer.h"
-#include "UCLineManager.h"
 #include "USCharPosition.h"
 #include "USFPieceTableAdd.h"
+#include <afxwin.h>
 
-class UCPieceTableManager
+class UCPieceTable : public UCRelinkList<USPieceTableEntry, USPieceTableEntry&>
 {
 	private:
 		USPieceTableEntry m_oDummyHeadEntry;
-		UCRelinkList<USPieceTableEntry, USPieceTableEntry&> m_oPieceTable;
 
 		UCAppendBuffer m_oAppendBuffer;
 		USCharPosition m_oCurrentTextPos;
@@ -24,13 +23,11 @@ class UCPieceTableManager
 		void CaseAdd_InsertBetween_Split(USFPieceTableAdd& roAddInfo);
 
 	public:
-		UCLineManager m_oLineManager;
-
-		UCPieceTableManager(CDC *poDC);
+		UCPieceTable(CDC* poDc);
 
 		NODE_PTR Add(TCHAR* tszString, unsigned int uiLength);
-		void GetAbsoluteCharPos(USCharPosition *poCharPos, unsigned int uiLength);
+		void GetAbsoluteCharPos(USCharPosition* poCharPos, unsigned int uiLength);
 		void SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize);
 		void SelectCharPosByCharCount(unsigned int uiLength);
+		void GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength);
 };
-

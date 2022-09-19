@@ -2,15 +2,18 @@
 #include <afxtempl.h>
 class USFontInfo
 {
+	private:
+
+
 	public:
 		USFontInfo();
-		USFontInfo(TCHAR* ptszStrName, unsigned int uiFontSize);
+		USFontInfo(TCHAR* ptszStrName, long lHeight);
+
+		TCHAR m_ptszStrName[32];
+		long m_lHeight;
+
 		bool operator==(const USFontInfo& oOtherFontInfo) const;
 		bool operator!=(const USFontInfo& oOtherFontInfo) const;
-
-	private:
-		TCHAR m_ptszStrName[32];
-		unsigned int m_uiPointSize;
 
 		friend class UCSFontInfoManager;
 };

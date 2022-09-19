@@ -8,7 +8,7 @@ class UCSFontInfoManager
 		static CList<USFontInfo, USFontInfo&> m_oFontInfoList;
 
 	public:
-		static USFontInfo* SetFontInfo(TCHAR* ptszStrName, unsigned int uiSize);
+		static USFontInfo* SetFontInfo(TCHAR* ptszStrName, long lHeight);
 		static HFONT ToHFont(USFontInfo* poFontInfo, CDC* poDc);
 };
 

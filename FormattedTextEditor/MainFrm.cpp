@@ -7,7 +7,8 @@
 #include "FormattedTextEditor.h"
 
 #include "MainFrm.h"
-#include "UCPieceTableManager.h"
+#include "UCTextEditorDataManager.h"
+#include "USPieceTableEntry.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -61,25 +62,25 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
 
-	UCPieceTableManager ptm(this->GetDC());
+	UCTextEditorDataManager ptm(this->GetDC());
 	TCHAR tsz[256];
 
 	//ptm.add(tsz, uiLen1);
 
 	_tcscpy(tsz, TEXT("This is a very very , I made it so with hopes that word wrap "));
-	ptm.Add(tsz, _tcslen(tsz));
-	ptm.SelectCharPosByCharCount(20);
+	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
+	ptm.m_oPieceTable.SelectCharPosByCharCount(20);
 	_tcscpy(tsz, TEXT("long line of text"));
-	ptm.Add(tsz, _tcslen(tsz));
-	ptm.SelectCharPosByCharCount(112);
+	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
+	ptm.m_oPieceTable.SelectCharPosByCharCount(112);
 	_tcscpy(tsz, TEXT("will correctly work. Vecherai Rado."));
-	ptm.Add(tsz, _tcslen(tsz));
+	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
 
 	UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
 	USCharPosition oStart, oEnd;
-	ptm.GetAbsoluteCharPos(&oStart, 15);
-	ptm.GetAbsoluteCharPos(&oEnd, 31);
-	//ptm.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 15);
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, 31);
+	ptm.m_oPieceTable.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
 	//ptm.SelectPosByCharCount(10);
 	//ptm.Add(TEXT("example"), 8);
 	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);

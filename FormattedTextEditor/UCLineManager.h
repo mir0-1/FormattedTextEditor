@@ -3,13 +3,13 @@
 #include "USLineEntry.h"
 #include "UCNonNullList.h"
 #include "UCGrowableTcharArray.h"
-#include "UCReadOnlyList.h"
+#include "UCPieceTable.h"
 #include <afxwin.h>
 
 class UCLineManager
 {
 	private:
-		UCReadOnlyRelinkList<USPieceTableEntry, USPieceTableEntry&> m_oPieceTable;
+		UCPieceTable& m_roPieceTable;
 		USCharPosition m_oDefaultPosition;
 		USLineEntry m_oDefaultLine;
 		UCNonNullList<USLineEntry, USLineEntry&> m_oLines;
@@ -21,9 +21,8 @@ class UCLineManager
 		unsigned int m_uiMaxLineWidth;
 
 	public:
-		UCLineManager(CList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable, unsigned int uiMaxLineWidth, CDC *poDC);
+		UCLineManager(UCPieceTable& roPieceTable, unsigned int uiMaxLineWidth, CDC *poDC);
 
 		void RecalcLines(NODE_PTR posStartLine, NODE_PTR posEndLine);
 		int GetLineBreakStrLen();
-		void GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength);
 };

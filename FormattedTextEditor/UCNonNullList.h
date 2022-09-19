@@ -5,59 +5,46 @@ template <class TYPE, class ARG_TYPE = TYPE&>
 class UCNonNullList : public UCRelinkList<TYPE, ARG_TYPE>
 {
 	private:
-		TYPE m_typeEmptyListDefault;
-		TYPE m_typeNextDefault;
-		TYPE m_typePrevDefault;
+		TYPE m_typeDefault;
 
 	public:
-		UCNonNullList() {}
+		UCNonNullList() : UCRelinkList(m_typeDefault) {}
 
 		UCNonNullList(ARG_TYPE typeEmptyListDefault)
+			: UCRelinkList(typeEmptyListDefault)
 		{
-			m_typeEmptyListDefault = typeEmptyListDefault;
+			m_typeDefault = typeEmptyListDefault;
 		}
 
-		UCNonNullList(ARG_TYPE typeEmptyListDefault, ARG_TYPE typeNextDefault, ARG_TYPE typePrevDefault)
-			: UCNonNullList(typeEmptyListDefault)
+		TYPE& GetNext(POSITION& rpnPosition, bool& rbStartFromExistingTail)
 		{
-			m_typeNextDefault = typeNextDefault;
-			m_typePrevDefault = typePrevDefault;
+			if (rpnPosition == nullptr)
+			{
+				if (GetCount() > 0 && rbStartFromExistingTail)
+				{
+					rbStartFromExistingTail = false;
+					return __super::GetTail();
+				}
+
+				rpnPosition = __super::AddTail(m_typeDefault);
+			}
+
+			return __super::GetNext(rpnPosition);
 		}
 
-		TYPE& GetNext(POSITION& pnPosition)
+		TYPE& GetPrev(POSITION& rpnPosition, bool &rbStartFromExistingHead)
 		{
-			if (GetCount() == 0)
-				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddTail(m_typeEmptyListDefault);
+			if (rpnPosition == nullptr)
+			{
+				if (GetCount() > 0 && rbStartFromExistingHead)
+				{
+					rbStartFromExistingHead = false;
+					return __super::GetHead();
+				}
 
-			else if (pnPosition == nullptr)
-				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddTail(m_typeNextDefault);
+				rpnPosition = __super::AddHead(m_typeDefault);
+			}
 
-			return UCRelinkList<TYPE, ARG_TYPE>::GetNext(pnPosition);
-		}
-
-		TYPE& GetPrev(POSITION& pnPosition)
-		{
-			if (GetCount() == 0)
-				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddHead(m_typeEmptyListDefault);
-
-			else if (pnPosition == nullptr)
-				pnPosition = UCRelinkList<TYPE, ARG_TYPE>::AddHead(m_typePrevDefault);
-
-			return UCRelinkList<TYPE, ARG_TYPE>::GetPrev(pnPosition);
-		}
-		
-		TYPE& GetEmptyListDefault()
-		{
-			return m_typeEmptyListDefault;
-		}
-
-		TYPE& GetNextDefault()
-		{
-			return m_typeNextDefault;
-		}
-
-		TYPE& GetPrevDefault()
-		{
-			return m_typePrevDefault;
+			return __super::GetPrev(rpnPosition);
 		}
 };

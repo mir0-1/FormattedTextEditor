@@ -39,9 +39,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCPieceTableManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UCAppendBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,19 +78,10 @@
     <ClInclude Include="UCGrowableTcharArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCPieceTableAdder.h">
+    <ClInclude Include="UCPieceTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCPieceTableSplitMerger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UCAbstractPieceTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UCPieceTableReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UCConcretePieceTable.h">
+    <ClInclude Include="UCTextEditorDataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,9 +107,6 @@
     <ClCompile Include="UCAppendBuffer.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCPieceTableManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UCLineManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -146,19 +131,10 @@
     <ClCompile Include="UCGrowableTcharArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCPieceTableAdder.cpp">
+    <ClCompile Include="UCPieceTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCPieceTableSplitMerger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UCAbstractPieceTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UCPieceTableReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UCConcretePieceTable.cpp">
+    <ClCompile Include="UCTextEditorDataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,9 +4,9 @@
 #include "UCGrowableArray.h"
 
 
-UCLineManager::UCLineManager(CList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable, unsigned int uiMaxLineLength, CDC *poDC)
-	: m_oPieceTable(roPieceTable),
-	m_oDefaultPosition(m_oPieceTable.GetHeadPosition(), 0),
+UCLineManager::UCLineManager(UCPieceTable& roPieceTable, unsigned int uiMaxLineLength, CDC *poDC)
+	: m_roPieceTable(roPieceTable),
+	m_oDefaultPosition(m_roPieceTable.GetHeadPosition(), 0),
 	m_oDefaultLine(m_oDefaultPosition, 0, false),
 	m_oLines(m_oDefaultLine)
 {
@@ -21,10 +21,11 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 	unsigned int uiAppendedLength = 0, uiPrevAppendedLength;
 	int iLineBreakLength = -1, iPrevLineBreakLength = -1;
 	bool bLineWidthLimitReached = false;
+	bool bStartFromTail = true;
 
 	do
 	{
-		USLineEntry& oCurrentLine = m_oLines.GetNext(pnLineCurrent);
+		USLineEntry& oCurrentLine = m_oLines.GetNext(pnLineCurrent, bStartFromTail);
 
 		pnPteCurrent = oCurrentLine.m_oCharPos.m_pnNode;
 		uiAppendedLength = oCurrentLine.m_oCharPos.m_uiCharOffset;
@@ -32,7 +33,7 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 		while (pnPteCurrent != nullptr)
 		{
 			pnPtePrev = pnPteCurrent;
-			const USPieceTableEntry& oCurrentPte = m_oPieceTable.GetNext(pnPteCurrent);
+			const USPieceTableEntry& oCurrentPte = m_roPieceTable.GetNext(pnPteCurrent);
 
 			HFONT hFont = UCSFontInfoManager::ToHFont(oCurrentPte.m_poFontInfo, m_poDC);
 			HFONT hPrevFont = (HFONT)m_poDC->SelectObject(hFont);
@@ -43,6 +44,9 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 				uiAppendedLength += m_oLineAsString.AppendUntilSpace(min(m_uiMaxLineWidth, oCurrentPte.m_uiLength - uiAppendedLength));
 				iPrevLineBreakLength = iLineBreakLength;
 				iLineBreakLength = GetLineBreakStrLen();
+
+				if (oCurrentPte.m_poFontInfo != nullptr && oCurrentLine.m_uiMaxTmHeight < oCurrentPte.m_poFontInfo->m_lHeight)
+					oCurrentLine.m_uiMaxTmHeight = oCurrentPte.m_poFontInfo->m_lHeight;
 
 				if (iPrevLineBreakLength == iLineBreakLength)
 				{
@@ -57,8 +61,8 @@ void UCLineManager::RecalcLines(NODE_PTR pnStartLine, NODE_PTR pnEndLine)
 
 				USCharPosition oBreakLinePos;
 
-				GetRelativeCharPos(&oCurrentLine.m_oCharPos, &oBreakLinePos, uiAppendedLength);
-				USLineEntry& oNextLine = m_oLines.GetNext(pnLineCurrent);
+				m_roPieceTable.GetRelativeCharPos(&oCurrentLine.m_oCharPos, &oBreakLinePos, uiAppendedLength);
+				USLineEntry& oNextLine = m_oLines.GetNext(pnLineCurrent, bStartFromTail);
 				oNextLine.m_oCharPos.m_pnNode = oBreakLinePos.m_pnNode;
 				oNextLine.m_oCharPos.m_uiCharOffset = oBreakLinePos.m_uiCharOffset;
 
@@ -83,48 +87,3 @@ int UCLineManager::GetLineBreakStrLen()
 
 	return oGcpResults.nMaxFit;
 }
-
-void UCLineManager::GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength)
-{
-	NODE_PTR pnCurrent;
-	NODE_PTR pnPrev = nullptr;
-	const USPieceTableEntry* poEntry = nullptr;
-	unsigned int uiInitialCharOffset;
-
-	if (poResult == nullptr)
-		return;
-
-	if (poStart == nullptr)
-	{
-		pnCurrent = m_oPieceTable.GetHeadPosition();
-		uiInitialCharOffset = 0;
-	}
-	else
-	{
-		pnCurrent = poStart->m_pnNode;
-		uiInitialCharOffset = poStart->m_uiCharOffset;
-	}
-
-	while (pnCurrent != nullptr)
-	{
-		if (pnPrev != nullptr)
-			uiLength -= poEntry->m_uiLength;
-
-		pnPrev = pnCurrent;
-		poEntry = &m_oPieceTable.GetNext(pnCurrent);
-
-		if (uiLength <= poEntry->m_uiLength - uiInitialCharOffset)
-			break;
-
-		if (uiInitialCharOffset)
-			uiInitialCharOffset = 0;
-	}
-
-	if (uiLength > poEntry->m_uiLength)
-		uiLength = poEntry->m_uiLength;
-
-	poResult->m_pnNode = pnPrev;
-	poResult->m_uiCharOffset = uiLength;
-}
-
-

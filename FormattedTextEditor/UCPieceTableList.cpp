@@ -1,11 +1,11 @@
 #include "pch.h"
-#include "UCTextEditorDataManager.h"
+#include "UCPieceTable.h"
 #include "UCSFontInfoManager.h"
 
 
-NODE_PTR UCTextEditorDataManager::SplitAt(USCharPosition& roCharPos)
+NODE_PTR UCPieceTable::SplitAt(USCharPosition& roCharPos)
 {
-	USPieceTableEntry &oSelectedPte = m_oPieceTable.GetAt(roCharPos.m_pnNode);
+	USPieceTableEntry& oSelectedPte = GetAt(roCharPos.m_pnNode);
 	USPieceTableEntry oSecondSplitPartPte;
 	NODE_PTR pnResult = nullptr;
 
@@ -17,61 +17,59 @@ NODE_PTR UCTextEditorDataManager::SplitAt(USCharPosition& roCharPos)
 
 	oSecondSplitPartPte.m_ptszContent = oSelectedPte.m_ptszContent + roCharPos.m_uiCharOffset;
 	oSecondSplitPartPte.m_uiLength = uiSplitLengthLeft;
-	pnResult = m_oPieceTable.InsertAfter(roCharPos.m_pnNode, oSecondSplitPartPte);
+	pnResult = InsertAfter(roCharPos.m_pnNode, oSecondSplitPartPte);
 
 	return pnResult;
 }
 
-void UCTextEditorDataManager::CaseAdd_EmptyTable(USFPieceTableAdd& roAddInfo)
+void UCPieceTable::CaseAdd_EmptyTable(USFPieceTableAdd& roAddInfo)
 {
 	roAddInfo.oAddedPte.m_ptszContent = roAddInfo.pszThisTracker;
 	roAddInfo.oAddedPte.m_uiLength = (roAddInfo.uiPrevLength - *roAddInfo.m_puiLengthNotAdded);
-	m_oCurrentTextPos.m_pnNode = m_oPieceTable.AddTail(roAddInfo.oAddedPte);
+	m_oCurrentTextPos.m_pnNode = AddTail(roAddInfo.oAddedPte);
 	m_oCurrentTextPos.m_uiCharOffset = roAddInfo.oAddedPte.m_uiLength;
 }
 
-void UCTextEditorDataManager::CaseAdd_InsertAfter_Update(USFPieceTableAdd& roAddInfo)
+void UCPieceTable::CaseAdd_InsertAfter_Update(USFPieceTableAdd& roAddInfo)
 {
 	roAddInfo.oSelectedPte->m_uiLength += (roAddInfo.uiPrevLength - *roAddInfo.m_puiLengthNotAdded);
 	m_oCurrentTextPos.m_uiCharOffset = roAddInfo.oSelectedPte->m_uiLength;
 }
 
-void UCTextEditorDataManager::CaseAdd_InsertAfter_New(USFPieceTableAdd& roAddInfo)
+void UCPieceTable::CaseAdd_InsertAfter_New(USFPieceTableAdd& roAddInfo)
 {
 	roAddInfo.oAddedPte.m_ptszContent = roAddInfo.pszThisTracker;
 	roAddInfo.oAddedPte.m_uiLength = (roAddInfo.uiPrevLength - *roAddInfo.m_puiLengthNotAdded);
-	m_oCurrentTextPos.m_pnNode = m_oPieceTable.InsertAfter(m_oCurrentTextPos.m_pnNode, roAddInfo.oAddedPte);
+	m_oCurrentTextPos.m_pnNode = InsertAfter(m_oCurrentTextPos.m_pnNode, roAddInfo.oAddedPte);
 	m_oCurrentTextPos.m_uiCharOffset = roAddInfo.oAddedPte.m_uiLength;
 }
 
-void UCTextEditorDataManager::CaseAdd_InsertBefore_New(USFPieceTableAdd& roAddInfo)
+void UCPieceTable::CaseAdd_InsertBefore_New(USFPieceTableAdd& roAddInfo)
 {
 	roAddInfo.oAddedPte.m_ptszContent = roAddInfo.pszThisTracker;
 	roAddInfo.oAddedPte.m_uiLength = (roAddInfo.uiPrevLength - *roAddInfo.m_puiLengthNotAdded);
-	m_oCurrentTextPos.m_pnNode = m_oPieceTable.InsertBefore(m_oCurrentTextPos.m_pnNode, roAddInfo.oAddedPte);
+	m_oCurrentTextPos.m_pnNode = InsertBefore(m_oCurrentTextPos.m_pnNode, roAddInfo.oAddedPte);
 	m_oCurrentTextPos.m_uiCharOffset = roAddInfo.oAddedPte.m_uiLength;
 }
 
-void UCTextEditorDataManager::CaseAdd_InsertBetween_Split(USFPieceTableAdd& roAddInfo)
+void UCPieceTable::CaseAdd_InsertBetween_Split(USFPieceTableAdd& roAddInfo)
 {
 	SplitAt(m_oCurrentTextPos);
 
 	roAddInfo.oAddedPte.m_ptszContent = roAddInfo.pszThisTracker;
 	roAddInfo.oAddedPte.m_uiLength = (roAddInfo.uiPrevLength - *roAddInfo.m_puiLengthNotAdded);
-	m_oCurrentTextPos.m_pnNode = m_oPieceTable.InsertAfter(m_oCurrentTextPos.m_pnNode, roAddInfo.oAddedPte);
+	m_oCurrentTextPos.m_pnNode = InsertAfter(m_oCurrentTextPos.m_pnNode, roAddInfo.oAddedPte);
 	m_oCurrentTextPos.m_uiCharOffset = roAddInfo.oAddedPte.m_uiLength;
 }
 
 
 
-UCTextEditorDataManager::UCTextEditorDataManager(CDC *poDC) 
-	: m_oPieceTable(m_oDummyHeadEntry),
-	m_oLineManager((CList<USPieceTableEntry, USPieceTableEntry&>&)m_oPieceTable, 20, poDC)
+UCPieceTable::UCPieceTable(CDC* poDC)
 {
- 
+
 }
 
-NODE_PTR UCTextEditorDataManager::Add(TCHAR* tszString, unsigned int uiLength)
+NODE_PTR UCPieceTable::Add(TCHAR* tszString, unsigned int uiLength)
 {
 	static USFPieceTableAdd oAddInfo;
 	oAddInfo.Reinit(&uiLength);
@@ -82,7 +80,7 @@ NODE_PTR UCTextEditorDataManager::Add(TCHAR* tszString, unsigned int uiLength)
 
 		if (m_oCurrentTextPos.m_pnNode != nullptr)
 		{
-			oAddInfo.oSelectedPte = &m_oPieceTable.GetAt(m_oCurrentTextPos.m_pnNode);
+			oAddInfo.oSelectedPte = &GetAt(m_oCurrentTextPos.m_pnNode);
 
 			if (oAddInfo.pnPrev != nullptr && (m_oCurrentTextPos.m_pnNode != oAddInfo.pnPrev || m_oCurrentTextPos.m_uiCharOffset != oAddInfo.oSelectedPte->m_uiLength))
 				m_oAppendBuffer.UpdateTracker();
@@ -120,19 +118,19 @@ NODE_PTR UCTextEditorDataManager::Add(TCHAR* tszString, unsigned int uiLength)
 	return m_oCurrentTextPos.m_pnNode;
 }
 
-void UCTextEditorDataManager::SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize)
+void UCPieceTable::SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize)
 {
 	if (roStart.m_pnNode == nullptr || roEnd.m_pnNode == nullptr)
 		return;
 
 	USFontInfo* poTargetFont = UCSFontInfoManager::SetFontInfo(ptszStrFontName, uiFontSize);
-	USPieceTableEntry& roStartEntry = m_oPieceTable.GetAt(roStart.m_pnNode);
-	USPieceTableEntry& roEndEntry = m_oPieceTable.GetAt(roEnd.m_pnNode);
+	USPieceTableEntry& roStartEntry = GetAt(roStart.m_pnNode);
+	USPieceTableEntry& roEndEntry = GetAt(roEnd.m_pnNode);
 
 	if (roStartEntry.m_poFontInfo == nullptr || *poTargetFont != *roStartEntry.m_poFontInfo)
 	{
 		NODE_PTR pnSplitEntry = SplitAt(roStart);
-		USPieceTableEntry& roSplitEntry = m_oPieceTable.GetAt(pnSplitEntry);
+		USPieceTableEntry& roSplitEntry = GetAt(pnSplitEntry);
 		roSplitEntry.m_poFontInfo = UCSFontInfoManager::SetFontInfo(ptszStrFontName, uiFontSize);
 	}
 
@@ -142,12 +140,55 @@ void UCTextEditorDataManager::SetFont(USCharPosition& roStart, USCharPosition& r
 	roEndEntry.m_poFontInfo = UCSFontInfoManager::SetFontInfo(ptszStrFontName, uiFontSize);
 }
 
-void UCTextEditorDataManager::SelectCharPosByCharCount(unsigned int uiLength)
+void UCPieceTable::SelectCharPosByCharCount(unsigned int uiLength)
 {
-	m_oLineManager.GetRelativeCharPos(nullptr, &m_oCurrentTextPos, uiLength);
+	
 }
 
-void UCTextEditorDataManager::GetAbsoluteCharPos(USCharPosition* poCharPosResult, unsigned int uiLength)
+void UCPieceTable::GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength)
 {
-	m_oLineManager.GetRelativeCharPos(nullptr, poCharPosResult, uiLength);
+	NODE_PTR pnCurrent;
+	NODE_PTR pnPrev = nullptr;
+	const USPieceTableEntry* poEntry = nullptr;
+	unsigned int uiInitialCharOffset;
+
+	if (poResult == nullptr)
+		return;
+
+	if (poStart == nullptr)
+	{
+		pnCurrent = GetHeadPosition();
+		uiInitialCharOffset = 0;
+	}
+	else
+	{
+		pnCurrent = poStart->m_pnNode;
+		uiInitialCharOffset = poStart->m_uiCharOffset;
+	}
+
+	while (pnCurrent != nullptr)
+	{
+		if (pnPrev != nullptr)
+			uiLength -= poEntry->m_uiLength;
+
+		pnPrev = pnCurrent;
+		poEntry = &GetNext(pnCurrent);
+
+		if (uiLength <= poEntry->m_uiLength - uiInitialCharOffset)
+			break;
+
+		if (uiInitialCharOffset)
+			uiInitialCharOffset = 0;
+	}
+
+	if (uiLength > poEntry->m_uiLength)
+		uiLength = poEntry->m_uiLength;
+
+	poResult->m_pnNode = pnPrev;
+	poResult->m_uiCharOffset = uiLength;
+}
+
+void UCPieceTable::GetAbsoluteCharPos(USCharPosition* poCharPosResult, unsigned int uiLength)
+{
+	GetRelativeCharPos(nullptr, poCharPosResult, uiLength);
 }

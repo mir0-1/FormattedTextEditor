@@ -3,9 +3,9 @@
 
 CList<USFontInfo, USFontInfo&> UCSFontInfoManager::m_oFontInfoList;
 
-USFontInfo* UCSFontInfoManager::SetFontInfo(TCHAR* ptszStrName, unsigned int uiSize)
+USFontInfo* UCSFontInfoManager::SetFontInfo(TCHAR* ptszStrName, long lHeight)
 {
-	USFontInfo oTemp(ptszStrName, uiSize);
+	USFontInfo oTemp(ptszStrName, lHeight);
 	NODE_PTR pnFindResult = m_oFontInfoList.Find(oTemp, m_oFontInfoList.GetHeadPosition());
 
 	if (pnFindResult == nullptr)
@@ -28,7 +28,7 @@ HFONT UCSFontInfoManager::ToHFont(USFontInfo* poFontInfo, CDC* poDC)
 	oLogfont.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 	oLogfont.lfEscapement = 0;
 	_tcscpy_s(oLogfont.lfFaceName, 32, poFontInfo->m_ptszStrName);
-	oLogfont.lfHeight = -MulDiv(poFontInfo->m_uiPointSize, poDC->GetDeviceCaps(LOGPIXELSY), 72);
+	oLogfont.lfHeight = poFontInfo->m_lHeight;
 	oLogfont.lfItalic = 0; // add support
 	oLogfont.lfOrientation = 0;
 	oLogfont.lfOutPrecision = OUT_DEFAULT_PRECIS;

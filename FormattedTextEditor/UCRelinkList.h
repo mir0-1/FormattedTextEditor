@@ -11,8 +11,6 @@ class UCRelinkList : public CList<TYPE, ARG_TYPE>
 			AddHead(typeFirstElement);
 		}
 
-		UCRelinkList() : CList() {}
-
 		void UCRelinkList<TYPE, ARG_TYPE>::Unlink(NODE_PTR pnStartNode, NODE_PTR pnEndNode)
 		{
 			if (pnNode == nullptr || pnStartNode == nullptr || pnEndNode == nullptr)
