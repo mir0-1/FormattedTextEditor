@@ -120,21 +120,33 @@ void UCPieceTable::SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR
 	if (roStart.m_pnNode == nullptr || roEnd.m_pnNode == nullptr)
 		return;
 
-	USFontInfo* poTargetFont = UCSFontInfoManager::SetFontInfo(ptszStrFontName, uiFontSize);
-	USPieceTableEntry& roStartEntry = GetAt(roStart.m_pnNode);
+	USFontInfo* poTargetFont = UCSFontInfoManager::CreateFontInfo(ptszStrFontName, uiFontSize);
+	NODE_PTR pnIterator = roStart.m_pnNode;
+	USPieceTableEntry* poCurrentEntry = &GetNext(pnIterator);
 	USPieceTableEntry& roEndEntry = GetAt(roEnd.m_pnNode);
 
-	if (roStartEntry.m_poFontInfo == nullptr || *poTargetFont != *roStartEntry.m_poFontInfo)
+	if (poCurrentEntry->m_poFontInfo == nullptr || poTargetFont != poCurrentEntry->m_poFontInfo || poCurrentEntry->m_ptszContent)
 	{
 		NODE_PTR pnSplitEntry = SplitAt(roStart);
 		USPieceTableEntry& roSplitEntry = GetAt(pnSplitEntry);
-		roSplitEntry.m_poFontInfo = UCSFontInfoManager::SetFontInfo(ptszStrFontName, uiFontSize);
+		roSplitEntry.m_poFontInfo = poTargetFont;
 	}
 
-	if (roEndEntry.m_poFontInfo == nullptr || *poTargetFont != *roEndEntry.m_poFontInfo)
+	while (pnIterator != roEnd.m_pnNode)
+	{
+		poCurrentEntry = &GetNext(pnIterator);
+
+		if (pnIterator == nullptr)
+			return;
+
+		if (poCurrentEntry->m_poFontInfo == nullptr || poTargetFont != poCurrentEntry->m_poFontInfo || poCurrentEntry->m_ptszContent)
+			poCurrentEntry->m_poFontInfo = poTargetFont;
+	}
+
+	if (roEndEntry.m_poFontInfo == nullptr || poTargetFont != roEndEntry.m_poFontInfo || roEndEntry.m_ptszContent)
 		SplitAt(roEnd);
 
-	roEndEntry.m_poFontInfo = UCSFontInfoManager::SetFontInfo(ptszStrFontName, uiFontSize);
+	roEndEntry.m_poFontInfo = poTargetFont;
 }
 
 void UCPieceTable::SelectCharPosByCharCount(unsigned int uiLength)

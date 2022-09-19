@@ -78,8 +78,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
 	USCharPosition oStart, oEnd;
-	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 15);
-	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, 31);
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 0);
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, INT_MAX);
 	ptm.m_oPieceTable.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
 	//ptm.SelectPosByCharCount(10);
 	//ptm.Add(TEXT("example"), 8);

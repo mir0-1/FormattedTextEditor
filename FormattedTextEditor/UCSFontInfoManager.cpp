@@ -3,7 +3,7 @@
 
 CList<USFontInfo, USFontInfo&> UCSFontInfoManager::m_oFontInfoList;
 
-USFontInfo* UCSFontInfoManager::SetFontInfo(TCHAR* ptszStrName, long lHeight)
+USFontInfo* UCSFontInfoManager::CreateFontInfo(TCHAR* ptszStrName, long lHeight)
 {
 	USFontInfo oTemp(ptszStrName, lHeight);
 	NODE_PTR pnFindResult = m_oFontInfoList.Find(oTemp, m_oFontInfoList.GetHeadPosition());
