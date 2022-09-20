@@ -67,7 +67,7 @@ int CFormattedTextEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 // CFormattedTextEditorView drawing
 
-void CFormattedTextEditorView::OnDraw(CDC* /*pDC*/)
+void CFormattedTextEditorView::OnDraw(CDC* poDc)
 {
 	CFormattedTextEditorDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -75,7 +75,7 @@ void CFormattedTextEditorView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	TCHAR tsz[256];
-	UCTextEditorDataManager ptm(this->GetDC());
+	UCTextEditorDataManager ptm(poDc);
 
 	_tcscpy(tsz, TEXT("This is a very very , I made it so with hopes that word wrap "));
 	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
@@ -100,6 +100,7 @@ void CFormattedTextEditorView::OnDraw(CDC* /*pDC*/)
 	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
 
 	NODE_PTR line = ptm.m_oLineManager.GetLineList().FindIndex(1);
+	poDc->SetBkMode(TRANSPARENT);
 	ptm.m_oDataVisualiser.DisplayLine(100, 100, line);
 
 	// TODO: add draw code for native data here

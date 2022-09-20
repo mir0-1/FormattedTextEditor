@@ -17,6 +17,6 @@ class UCDataVisualiser
 	public:
 		UCDataVisualiser(UCPieceTable& roPieceTable, CDC* poDc, UCNonNullList<USLineEntry, USLineEntry&>& roLines);
 
-		void DisplayLine(int x, int y, NODE_PTR pnLineToDisplay);
+		void DisplayLine(LONG x, LONG y, NODE_PTR pnLineToDisplay);
 };
 

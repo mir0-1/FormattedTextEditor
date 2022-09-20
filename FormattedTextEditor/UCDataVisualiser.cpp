@@ -8,7 +8,7 @@ UCDataVisualiser::UCDataVisualiser(UCPieceTable& roPieceTable, CDC* poDc, UCNonN
 	m_poDc = poDc;
 }
 
-void UCDataVisualiser::DisplayLine(int x, int y, NODE_PTR pnLineToDisplay)
+void UCDataVisualiser::DisplayLine(LONG x, LONG y, NODE_PTR pnLineToDisplay)
 {
 	if (pnLineToDisplay == nullptr)
 		return;
@@ -41,9 +41,9 @@ void UCDataVisualiser::DisplayLine(int x, int y, NODE_PTR pnLineToDisplay)
 		m_poDc->TextOutW(x, y, poPte->m_ptszContent, uiLengthToDisplay);
 		oTextExtent = m_poDc->GetTextExtent(poPte->m_ptszContent, uiLengthToDisplay);
 		x += oTextExtent.cx;
-		pnIterator = pnNextIterator;
 
 		m_poDc->SelectObject(hPrev);
+		pnIterator = pnNextIterator;
 	}
 	
 }

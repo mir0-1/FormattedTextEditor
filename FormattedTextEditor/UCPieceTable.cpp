@@ -122,31 +122,36 @@ void UCPieceTable::SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR
 
 	USFontInfo* poTargetFont = UCSFontInfoManager::CreateFontInfo(ptszStrFontName, uiFontSize);
 	NODE_PTR pnIterator = roStart.m_pnNode;
+	NODE_PTR pnNextIterator;
 	USPieceTableEntry* poCurrentEntry = &GetNext(pnIterator);
 	USPieceTableEntry& roEndEntry = GetAt(roEnd.m_pnNode);
+	bool bExitLoop = false;
 
 	if (poCurrentEntry->m_poFontInfo == nullptr || poTargetFont != poCurrentEntry->m_poFontInfo || poCurrentEntry->m_ptszContent)
 	{
-		NODE_PTR pnSplitEntry = SplitAt(roStart);
-		USPieceTableEntry& roSplitEntry = GetAt(pnSplitEntry);
+		pnIterator = SplitAt(roStart);
+		USPieceTableEntry& roSplitEntry = GetAt(pnIterator);
 		roSplitEntry.m_poFontInfo = poTargetFont;
 	}
 
-	while (pnIterator != roEnd.m_pnNode)
+	pnNextIterator = pnIterator;
+	while (pnIterator != nullptr && !bExitLoop)
 	{
-		poCurrentEntry = &GetNext(pnIterator);
-
-		if (pnIterator == nullptr)
-			return;
+		poCurrentEntry = &GetNext(pnNextIterator);
 
 		if (poCurrentEntry->m_poFontInfo == nullptr || poTargetFont != poCurrentEntry->m_poFontInfo || poCurrentEntry->m_ptszContent)
+		{
+			if (pnIterator == roEnd.m_pnNode)
+			{
+				SplitAt(roEnd);
+				bExitLoop = true;
+			}
+			
 			poCurrentEntry->m_poFontInfo = poTargetFont;
+		}
+
+		pnIterator = pnNextIterator;
 	}
-
-	if (roEndEntry.m_poFontInfo == nullptr || poTargetFont != roEndEntry.m_poFontInfo || roEndEntry.m_ptszContent)
-		SplitAt(roEnd);
-
-	roEndEntry.m_poFontInfo = poTargetFont;
 }
 
 void UCPieceTable::SelectCharPosByCharCount(unsigned int uiLength)
