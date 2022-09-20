@@ -19,7 +19,7 @@ HFONT UCSFontInfoManager::ToHFont(USFontInfo* poFontInfo, CDC* poDC)
 	static LOGFONT oLogfont;
 	static HFONT hFont;
 
-	if (poDC)
+	if (!poDC)
 		return nullptr;
 
 	DeleteObject(hFont);

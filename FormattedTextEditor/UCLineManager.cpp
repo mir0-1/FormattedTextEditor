@@ -87,3 +87,8 @@ int UCLineManager::GetLineBreakStrLen()
 
 	return oGcpResults.nMaxFit;
 }
+
+UCNonNullList<USLineEntry, USLineEntry&>& UCLineManager::GetLineList()
+{
+	return m_oLines;
+}

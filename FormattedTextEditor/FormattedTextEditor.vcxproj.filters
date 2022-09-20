@@ -84,6 +84,9 @@
     <ClInclude Include="UCTextEditorDataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UCDataVisualiser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FormattedTextEditor.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UCTextEditorDataManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCDataVisualiser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

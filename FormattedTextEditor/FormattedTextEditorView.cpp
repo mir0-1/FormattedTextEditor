@@ -12,6 +12,7 @@
 
 #include "FormattedTextEditorDoc.h"
 #include "FormattedTextEditorView.h"
+#include "UCTextEditorDataManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -59,6 +60,8 @@ int CFormattedTextEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	RECT r = { 20, 20, 200, 100 };
 	m_fcb.Create(CBS_DROPDOWNLIST | WS_VISIBLE | WS_VSCROLL, r, this, 55555);
 
+	//ptm.add(tsz, uiLen1);
+
 	return 0;
 }
 
@@ -70,6 +73,34 @@ void CFormattedTextEditorView::OnDraw(CDC* /*pDC*/)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+
+	TCHAR tsz[256];
+	UCTextEditorDataManager ptm(this->GetDC());
+
+	_tcscpy(tsz, TEXT("This is a very very , I made it so with hopes that word wrap "));
+	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
+	ptm.m_oPieceTable.SelectCharPosByCharCount(20);
+	_tcscpy(tsz, TEXT("long line of text"));
+	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
+	ptm.m_oPieceTable.SelectCharPosByCharCount(112);
+	_tcscpy(tsz, TEXT("will correctly work. Vecherai Rado."));
+	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
+
+	//UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
+	USCharPosition oStart, oEnd;
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 0);
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, INT_MAX);
+	ptm.m_oPieceTable.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
+	//ptm.SelectPosByCharCount(10);
+	//ptm.Add(TEXT("example"), 8);
+
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 3);
+	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, 8);
+	ptm.m_oPieceTable.SetFont(oStart, oEnd, TEXT("Tahoma"), 18);
+	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
+
+	NODE_PTR line = ptm.m_oLineManager.GetLineList().FindIndex(1);
+	ptm.m_oDataVisualiser.DisplayLine(100, 100, line);
 
 	// TODO: add draw code for native data here
 }

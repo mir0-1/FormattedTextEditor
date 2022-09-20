@@ -59,9 +59,10 @@ inline int UCGrowableArray<TYPE>::Append(unsigned int uiLength)
 		return -1;
 
 	if (uiLength > m_uiTotalLength)
-		Grow(uiMaxLength);
+		Grow(uiLength);
 
-	for (int i = 0;; i < uiLength; i++)
+	unsigned int i;
+	for (i = 0; i < uiLength; i++)
 		m_pTypeBaseAddress[m_uiUsedLength++] = *(m_pTypeAppendSource++);
 
 	m_pTypeAppendSource += i;

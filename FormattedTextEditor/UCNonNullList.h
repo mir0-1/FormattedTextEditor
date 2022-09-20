@@ -16,7 +16,7 @@ class UCNonNullList : public UCRelinkList<TYPE, ARG_TYPE>
 			m_typeDefault = typeEmptyListDefault;
 		}
 
-		TYPE& GetNext(POSITION& rpnPosition, bool& rbStartFromExistingTail)
+		TYPE& GetNext(POSITION& rpnPosition, bool& rbStartFromExistingTail = false)
 		{
 			if (rpnPosition == nullptr)
 			{
@@ -32,7 +32,7 @@ class UCNonNullList : public UCRelinkList<TYPE, ARG_TYPE>
 			return __super::GetNext(rpnPosition);
 		}
 
-		TYPE& GetPrev(POSITION& rpnPosition, bool &rbStartFromExistingHead)
+		TYPE& GetPrev(POSITION& rpnPosition, bool &rbStartFromExistingHead = false)
 		{
 			if (rpnPosition == nullptr)
 			{

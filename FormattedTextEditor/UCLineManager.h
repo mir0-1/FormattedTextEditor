@@ -25,4 +25,5 @@ class UCLineManager
 
 		void RecalcLines(NODE_PTR posStartLine, NODE_PTR posEndLine);
 		int GetLineBreakStrLen();
+		UCNonNullList<USLineEntry, USLineEntry&>& GetLineList();
 };
