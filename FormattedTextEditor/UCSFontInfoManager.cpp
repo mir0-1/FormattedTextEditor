@@ -14,15 +14,16 @@ USFontInfo* UCSFontInfoManager::CreateFontInfo(TCHAR* ptszStrName, long lHeight)
 	return &m_oFontInfoList.GetAt(pnFindResult);
 }
 
-HFONT UCSFontInfoManager::ToHFont(USFontInfo* poFontInfo, CDC* poDC)
+HFONT UCSFontInfoManager::ToHFont(USFontInfo* poFontInfo, CDC* poDc)
 {
 	static LOGFONT oLogfont;
 	static HFONT hFont;
 
-	if (!poDC)
+	if (!poDc || poFontInfo == nullptr)
 		return nullptr;
 
-	DeleteObject(hFont);
+	if (hFont != nullptr)
+		DeleteObject(hFont);
 
 	oLogfont.lfCharSet = DEFAULT_CHARSET;
 	oLogfont.lfClipPrecision = CLIP_DEFAULT_PRECIS;

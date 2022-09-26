@@ -5,12 +5,6 @@ template<class TYPE, class ARG_TYPE = const TYPE&>
 class UCRelinkList : public CList<TYPE, ARG_TYPE>
 {
 	public:
-		UCRelinkList(ARG_TYPE typeFirstElement)
-			: CList()
-		{
-			AddHead(typeFirstElement);
-		}
-
 		void Unlink(NODE_PTR pnStartNode, NODE_PTR pnEndNode)
 		{
 			if (pnNode == nullptr || pnStartNode == nullptr || pnEndNode == nullptr)

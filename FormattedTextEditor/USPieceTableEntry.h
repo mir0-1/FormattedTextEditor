@@ -1,14 +1,6 @@
 #pragma once
 #include "USFontInfo.h"
-
-enum UEPieceTableEntryType
-{
-	DISCRETE_ADD,
-	ATOMIC_ADD,
-	IMAGE_SPACING,
-	TABULATION
-};
-
+#include "user_typedefs.h"
 
 class USPieceTableEntry
 {
@@ -16,4 +8,5 @@ class USPieceTableEntry
 		USFontInfo* m_poFontInfo = nullptr;
 		TCHAR* m_ptszContent = nullptr;
 		unsigned int m_uiLength = 0;
+		NODE_PTR m_pnLine = nullptr;
 };

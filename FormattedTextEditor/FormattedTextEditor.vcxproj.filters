@@ -48,9 +48,6 @@
     <ClInclude Include="USLineEntry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCLineManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="user_typedefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,22 +66,25 @@
     <ClInclude Include="UCSFontInfoManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="USFPieceTableAdd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UCGrowableArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UCGrowableTcharArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCPieceTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UCTextEditorDataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UCDataVisualiser.h">
+    <ClInclude Include="UCSplitMerger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCTextInserter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCCharPosFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UCFormatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,9 +110,6 @@
     <ClCompile Include="UCAppendBuffer.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCLineManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="USLineEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -125,22 +122,28 @@
     <ClCompile Include="UCSFontInfoManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="USFPieceTableAdd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UCGrowableArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UCGrowableTcharArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCPieceTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UCTextEditorDataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UCDataVisualiser.cpp">
+    <ClCompile Include="USPieceTableEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCSplitMerger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCTextInserter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCCharPosFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCFormatter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -196,19 +196,19 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UCAppendBuffer.h" />
-    <ClInclude Include="UCDataVisualiser.h" />
+    <ClInclude Include="UCCharPosFinder.h" />
+    <ClInclude Include="UCFormatter.h" />
     <ClInclude Include="UCGrowableArray.h" />
     <ClInclude Include="UCGrowableTcharArray.h" />
-    <ClInclude Include="UCPieceTable.h" />
     <ClInclude Include="UCSFontInfoManager.h" />
-    <ClInclude Include="UCLineManager.h" />
     <ClInclude Include="UCNonNullList.h" />
     <ClInclude Include="UCRelinkList.h" />
+    <ClInclude Include="UCSplitMerger.h" />
+    <ClInclude Include="UCTextInserter.h" />
     <ClInclude Include="user_typedefs.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="USFontInfo.h" />
-    <ClInclude Include="USFPieceTableAdd.h" />
     <ClInclude Include="USLineEntry.h" />
     <ClInclude Include="USPieceTableEntry.h" />
     <ClInclude Include="UCTextEditorDataManager.h" />
@@ -226,17 +226,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="UCAppendBuffer.cpp" />
-    <ClCompile Include="UCDataVisualiser.cpp" />
+    <ClCompile Include="UCCharPosFinder.cpp" />
+    <ClCompile Include="UCFormatter.cpp" />
     <ClCompile Include="UCGrowableArray.cpp" />
     <ClCompile Include="UCGrowableTcharArray.cpp" />
-    <ClCompile Include="UCPieceTable.cpp" />
     <ClCompile Include="UCSFontInfoManager.cpp" />
-    <ClCompile Include="UCLineManager.cpp" />
+    <ClCompile Include="UCSplitMerger.cpp" />
     <ClCompile Include="UCTextEditorDataManager.cpp" />
+    <ClCompile Include="UCTextInserter.cpp" />
     <ClCompile Include="USCharPosition.cpp" />
     <ClCompile Include="USFontInfo.cpp" />
-    <ClCompile Include="USFPieceTableAdd.cpp" />
     <ClCompile Include="USLineEntry.cpp" />
+    <ClCompile Include="USPieceTableEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FormattedTextEditor.reg" />

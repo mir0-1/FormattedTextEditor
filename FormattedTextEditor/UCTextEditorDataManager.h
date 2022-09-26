@@ -1,15 +1,21 @@
 #pragma once
-#include "UCLineManager.h"
 #include "UCPieceTable.h"
-#include "UCDataVisualiser.h"
+#include "UCRelinkList.h"
+#include "UCFormatter.h"
+#include "UCCharPosFinder.h"
+#include "UCTextInserter.h"
 
 class UCTextEditorDataManager
 {
-	public:
-		UCPieceTable m_oPieceTable;
-		UCLineManager m_oLineManager;
-		UCDataVisualiser m_oDataVisualiser;
+	private:
+		UCRelinkList<USPieceTableEntry, USPieceTableEntry&> m_oListForPieceTable;
 
-		UCTextEditorDataManager(CDC *poDC);
+	public:
+		UCTextEditorDataManager();
+
+		UCSplitMerger m_oSplitMerger;
+		UCCharPosFinder m_oFinder;
+		UCTextInserter m_oInserter;
+		UCFormatter m_oFormatter;
 };
 

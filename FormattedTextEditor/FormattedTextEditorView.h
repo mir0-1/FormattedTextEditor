@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "UCTextEditorDataManager.h"
 
 class CFormattedTextEditorView : public CView
 {

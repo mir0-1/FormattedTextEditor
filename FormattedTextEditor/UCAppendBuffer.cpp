@@ -4,7 +4,7 @@ UCAppendBuffer::UCAppendBuffer()
 {
 	m_uiLengthPerArray = 256;
 	m_pArrTszCurrentArray = new TCHAR[m_uiLengthPerArray];
-	m_uiCurrentArrayLengthLeft = 0;
+	m_uiCurrentArrayLengthLeft = 256;
 	m_pTracker = nullptr;
 }
 
@@ -12,7 +12,7 @@ UCAppendBuffer::UCAppendBuffer(unsigned int uiInLengthPerArray)
 {
 	m_uiLengthPerArray = uiInLengthPerArray;
 	m_pArrTszCurrentArray = new TCHAR[m_uiLengthPerArray];
-	m_uiCurrentArrayLengthLeft = 0;
+	m_uiCurrentArrayLengthLeft = uiInLengthPerArray;
 	m_pTracker = nullptr;
 }
 
@@ -20,7 +20,7 @@ TCHAR* UCAppendBuffer::Add(TCHAR** tszString, unsigned int* uiLength, bool bUpda
 {
 	unsigned int i;
 
-	if (bUpdateTracker)
+	if (bUpdateTracker || m_pTracker == nullptr)
 		m_pTracker = &m_pArrTszCurrentArray[m_uiLengthPerArray - m_uiCurrentArrayLengthLeft];
 
 	for (i = 0; i < *uiLength; ++i)

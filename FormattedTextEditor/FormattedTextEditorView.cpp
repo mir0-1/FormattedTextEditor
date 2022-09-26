@@ -74,34 +74,39 @@ void CFormattedTextEditorView::OnDraw(CDC* poDc)
 	if (!pDoc)
 		return;
 
-	TCHAR tsz[256];
-	UCTextEditorDataManager ptm(poDc);
+	static bool bOnce;
+	static UCTextEditorDataManager ptm;
+	static TCHAR tsz[256];
+	static USCharPosition oPosition;
 
-	_tcscpy(tsz, TEXT("This is a very very , I made it so with hopes that word wrap "));
-	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
-	ptm.m_oPieceTable.SelectCharPosByCharCount(20);
-	_tcscpy(tsz, TEXT("long line of text"));
-	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
-	ptm.m_oPieceTable.SelectCharPosByCharCount(112);
-	_tcscpy(tsz, TEXT("will correctly work. Vecherai Rado."));
-	ptm.m_oPieceTable.Add(tsz, _tcslen(tsz));
+	if (!bOnce)
+	{
+		bOnce = true;
+		_tcscpy(tsz, TEXT("This is a very very , I made it so with hopes that word wrap "));
+		ptm.m_oInserter.Add(&oPosition, &oPosition, tsz, _tcslen(tsz));
+		ptm.m_oFinder.GetAbsoluteCharPos(&oPosition, 20);
+		_tcscpy(tsz, TEXT("long line of text"));
+		ptm.m_oInserter.Add(&oPosition, &oPosition, tsz, _tcslen(tsz));
+		ptm.m_oFinder.GetAbsoluteCharPos(&oPosition, 112);
+		_tcscpy(tsz, TEXT("will correctly work. Vecherai Rado."));
+		ptm.m_oInserter.Add(&oPosition, &oPosition, tsz, _tcslen(tsz));
 
-	//UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
-	USCharPosition oStart, oEnd;
-	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 0);
-	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, INT_MAX);
-	ptm.m_oPieceTable.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
-	//ptm.SelectPosByCharCount(10);
-	//ptm.Add(TEXT("example"), 8);
+		//UCDebugNode test; // only used for "Add watch" in debugger. Remove later.
+		USCharPosition oStart, oEnd;
+		ptm.m_oFinder.GetAbsoluteCharPos(&oStart, 0);
+		ptm.m_oFinder.GetAbsoluteCharPos(&oEnd, INT_MAX);
+		ptm.m_oFormatter.SetFont(oStart, oEnd, TEXT("Tahoma"), 13);
+		//ptm.SelectPosByCharCount(10);
+		//ptm.Add(TEXT("example"), 8);
 
-	ptm.m_oPieceTable.GetAbsoluteCharPos(&oStart, 3);
-	ptm.m_oPieceTable.GetAbsoluteCharPos(&oEnd, 8);
-	ptm.m_oPieceTable.SetFont(oStart, oEnd, TEXT("Tahoma"), 18);
-	ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
+		ptm.m_oFinder.GetAbsoluteCharPos(&oStart, 3);
+		ptm.m_oFinder.GetAbsoluteCharPos(&oEnd, 8);
+		ptm.m_oFormatter.SetFont(oStart, oEnd, TEXT("Arial"), 18);
+		//ptm.m_oLineManager.RecalcLines(nullptr, nullptr);
+	}
+	//NODE_PTR line = ptm.m_oLineManager.GetLineList().FindIndex(1);
+	//ptm.m_oDataVisualiser.DisplayLine(100, 100, line);*/
 
-	NODE_PTR line = ptm.m_oLineManager.GetLineList().FindIndex(1);
-	poDc->SetBkMode(TRANSPARENT);
-	ptm.m_oDataVisualiser.DisplayLine(100, 100, line);
 
 	// TODO: add draw code for native data here
 }
