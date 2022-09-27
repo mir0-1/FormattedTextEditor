@@ -1,5 +1,4 @@
 #pragma once
-#include "UCPieceTable.h"
 #include "UCRelinkList.h"
 #include "UCFormatter.h"
 #include "UCCharPosFinder.h"

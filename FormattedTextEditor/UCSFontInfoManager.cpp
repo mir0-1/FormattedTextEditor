@@ -14,7 +14,7 @@ USFontInfo* UCSFontInfoManager::CreateFontInfo(TCHAR* ptszStrName, long lHeight)
 	return &m_oFontInfoList.GetAt(pnFindResult);
 }
 
-HFONT UCSFontInfoManager::ToHFont(USFontInfo* poFontInfo, CDC* poDc)
+HFONT UCSFontInfoManager::ConvertToHFont(USFontInfo* poFontInfo, CDC* poDc)
 {
 	static LOGFONT oLogfont;
 	static HFONT hFont;

@@ -45,7 +45,7 @@ UCTextInserter::UCTextInserter(UCSplitMerger& roSplitMerger)
 {
 }
 
-void UCTextInserter::Add(USCharPosition* poPositionIn, USCharPosition* poPositionOut, TCHAR* ptszString, unsigned int uiLength)
+void UCTextInserter::Add(const USCharPosition* poPositionIn, USCharPosition* poPositionOut, TCHAR* ptszString, unsigned int uiLength)
 {
 	if (poPositionIn == nullptr)
 		return;
@@ -103,7 +103,7 @@ void UCTextInserter::ReinitAddInfo(unsigned int* puiLength)
 	m_puiLengthNotAdded = puiLength;
 }
 
-void UCTextInserter::UpdateOutPosition(NODE_PTR pnResult)
+void UCTextInserter::UpdateOutPosition(const NODE_PTR pnResult)
 {
 	if (m_poPositionOut != nullptr)
 	{

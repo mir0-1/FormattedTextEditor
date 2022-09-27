@@ -6,7 +6,7 @@ UCFormatter::UCFormatter(UCSplitMerger& roSplitMerger)
 {
 }
 
-void UCFormatter::SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize)
+void UCFormatter::SetFont(const USCharPosition& roStart, const USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize)
 {
 	if (roStart.m_pnNode == nullptr || roEnd.m_pnNode == nullptr)
 		return;

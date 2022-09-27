@@ -6,11 +6,11 @@
 class UCCharPosFinder
 {
 	private:
-		UCRelinkList<USPieceTableEntry, USPieceTableEntry&>& m_roPieceTable;
+		const UCRelinkList<USPieceTableEntry, USPieceTableEntry&>& m_roPieceTable;
 
 	public:
 		UCCharPosFinder(UCRelinkList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable);
 
-		void GetAbsoluteCharPos(USCharPosition* poCharPos, unsigned int uiLength);
-		void GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength);
+		void GetAbsoluteCharPos(USCharPosition* poResult, unsigned int uiLength) const;
+		void GetRelativeCharPos(const USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength) const;
 };

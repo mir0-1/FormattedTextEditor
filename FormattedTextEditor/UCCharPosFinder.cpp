@@ -5,12 +5,12 @@ UCCharPosFinder::UCCharPosFinder(UCRelinkList<USPieceTableEntry, USPieceTableEnt
 {
 }
 
-void UCCharPosFinder::GetAbsoluteCharPos(USCharPosition* poCharPos, unsigned int uiLength)
+void UCCharPosFinder::GetAbsoluteCharPos(USCharPosition* poResult, unsigned int uiLength) const
 {
-	GetRelativeCharPos(nullptr, poCharPos, uiLength);
+	GetRelativeCharPos(nullptr, poResult, uiLength);
 }
 
-void UCCharPosFinder::GetRelativeCharPos(USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength)
+void UCCharPosFinder::GetRelativeCharPos(const USCharPosition* poStart, USCharPosition* poResult, unsigned int uiLength) const
 {
 	NODE_PTR pnCurrent;
 	NODE_PTR pnPrev = nullptr;

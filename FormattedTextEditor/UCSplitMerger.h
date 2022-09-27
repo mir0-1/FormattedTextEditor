@@ -11,7 +11,7 @@ class UCSplitMerger
 	public:
 		UCSplitMerger(UCRelinkList<USPieceTableEntry, USPieceTableEntry&>& roPieceTable);
 
-		NODE_PTR SplitAfter(USCharPosition& roCharPos);
+		NODE_PTR SplitAfter(const USCharPosition& roCharPos);
 
 		friend class UCTextInserter;
 		friend class UCFormatter;

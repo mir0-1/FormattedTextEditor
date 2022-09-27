@@ -2,9 +2,6 @@
 #include <afxtempl.h>
 class USFontInfo
 {
-	private:
-
-
 	public:
 		USFontInfo();
 		USFontInfo(TCHAR* ptszStrName, long lHeight);

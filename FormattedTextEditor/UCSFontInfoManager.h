@@ -9,6 +9,6 @@ class UCSFontInfoManager
 
 	public:
 		static USFontInfo* CreateFontInfo(TCHAR* ptszStrName, long lHeight);
-		static HFONT ToHFont(USFontInfo* poFontInfo, CDC* poDc);
+		static HFONT ConvertToHFont(USFontInfo* poFontInfo, CDC* poDc);
 };
 

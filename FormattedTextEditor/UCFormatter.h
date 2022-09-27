@@ -9,6 +9,6 @@ class UCFormatter
 	public:
 		UCFormatter(UCSplitMerger& roSplitMerger);
 
-		void SetFont(USCharPosition& roStart, USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize);
+		void SetFont(const USCharPosition& roStart, const USCharPosition& roEnd, TCHAR* ptszStrFontName, unsigned int uiFontSize);
 };
 

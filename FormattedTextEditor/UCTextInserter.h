@@ -8,7 +8,7 @@ class UCTextInserter
 		UCSplitMerger& m_roSplitMerger;
 
 		UCAppendBuffer m_oAppendBuffer;
-		USCharPosition *m_poPositionIn;
+		const USCharPosition *m_poPositionIn;
 		USCharPosition *m_poPositionOut;
 		USPieceTableEntry m_oAddedPte;
 		USPieceTableEntry* m_poSelectedPte = nullptr;
@@ -24,11 +24,11 @@ class UCTextInserter
 		void CaseAdd_InsertBefore_New();
 		void CaseAdd_InsertBetween_Split();
 		void ReinitAddInfo(unsigned int* puiLength);
-		void UpdateOutPosition(NODE_PTR pnResult);
+		void UpdateOutPosition(const NODE_PTR pnResult);
 
 	public:
 		UCTextInserter(UCSplitMerger& roSplitMerger);
 
-		void Add(USCharPosition* poPositionIn, USCharPosition* poPositionOut, TCHAR* tszString, unsigned int uiLength);
+		void Add(const USCharPosition* poPositionIn, USCharPosition* poPositionOut, TCHAR* tszString, unsigned int uiLength);
 };
 

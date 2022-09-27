@@ -5,7 +5,7 @@ UCSplitMerger::UCSplitMerger(UCRelinkList<USPieceTableEntry, USPieceTableEntry&>
 {
 }
 
-NODE_PTR UCSplitMerger::SplitAfter(USCharPosition& roCharPos)
+NODE_PTR UCSplitMerger::SplitAfter(const USCharPosition& roCharPos)
 {
 	USPieceTableEntry& oSelectedPte = m_roPieceTable.GetAt(roCharPos.m_pnNode);
 	USPieceTableEntry oSecondSplitPartPte;
