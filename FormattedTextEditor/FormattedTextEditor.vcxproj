@@ -204,6 +204,7 @@
     <ClInclude Include="UCNonNullList.h" />
     <ClInclude Include="UCRelinkList.h" />
     <ClInclude Include="UCSplitMerger.h" />
+    <ClInclude Include="UCStringExtent.h" />
     <ClInclude Include="UCTextInserter.h" />
     <ClInclude Include="user_typedefs.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -232,6 +233,7 @@
     <ClCompile Include="UCGrowableTcharArray.cpp" />
     <ClCompile Include="UCSFontInfoManager.cpp" />
     <ClCompile Include="UCSplitMerger.cpp" />
+    <ClCompile Include="UCStringExtent.cpp" />
     <ClCompile Include="UCTextEditorDataManager.cpp" />
     <ClCompile Include="UCTextInserter.cpp" />
     <ClCompile Include="USCharPosition.cpp" />

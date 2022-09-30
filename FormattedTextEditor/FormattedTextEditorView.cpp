@@ -13,6 +13,8 @@
 #include "FormattedTextEditorDoc.h"
 #include "FormattedTextEditorView.h"
 #include "UCTextEditorDataManager.h"
+#include "UCSFontInfoManager.h"
+#include "UCStringExtent.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -106,6 +108,19 @@ void CFormattedTextEditorView::OnDraw(CDC* poDc)
 	}
 	//NODE_PTR line = ptm.m_oLineManager.GetLineList().FindIndex(1);
 	//ptm.m_oDataVisualiser.DisplayLine(100, 100, line);*/
+	TCHAR testStr[] = TEXT("This is a test extended");
+	UCStringExtent oStrExtent;
+	oStrExtent.SetMaxExtent(30);
+	oStrExtent.m_oString.SetAppendSource(testStr);
+	oStrExtent.m_oString.Append(_tcslen(testStr));
+
+	USFontInfo* poFontInfo = UCSFontInfoManager::CreateFontInfo(TEXT("Tahoma"), 13);
+	HFONT hFont = UCSFontInfoManager::ConvertToHFont(poFontInfo, poDc);
+	poDc->SelectObject(hFont);
+
+	oStrExtent.Update(poDc);
+
+
 
 
 	// TODO: add draw code for native data here

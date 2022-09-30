@@ -8,9 +8,11 @@ int UCGrowableTcharArray::AppendUntilSpace(unsigned int uiLength)
 	if (uiLength > m_uiTotalLength)
 		Grow(uiLength);
 
+	m_uiPrevUsedLength = m_uiUsedLength;
+
 	bool bWasInSpaces = false;
 	int i;
-	for (i = 0; i + 1 < uiLength; i++)
+	for (i = 0; i < uiLength; i++)
 	{
 		if (_istspace(m_pTypeAppendSource[i]))
 			bWasInSpaces = true;
@@ -24,6 +26,7 @@ int UCGrowableTcharArray::AppendUntilSpace(unsigned int uiLength)
 	}
 
 	m_pTypeAppendSource += i;
+	m_uiPrevAppendLength = uiLength;
 
 	return i;
 }

@@ -87,6 +87,9 @@
     <ClInclude Include="UCFormatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UCStringExtent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FormattedTextEditor.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UCFormatter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UCStringExtent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
